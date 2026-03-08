@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1e4a9b;    /* Deep Blue */
+  --color-secondary: #fcb040;  /* Vibrant Orange */
+  --color-tertiary: #ffffff;   /* White */
+  --color-dark: #05070a;       /* Richer Dark */
+  --color-light: #f8fafc;      
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", sans-serif; /* We can use weights to differentiate */
+}
+
+@layer base {
+  body {
+    @apply bg-light text-dark font-sans antialiased m-0 p-0 overflow-x-hidden selection:bg-secondary selection:text-white;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+@layer utilities {
+  .text-reveal {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  
+  .parallax-bg {
+    will-change: transform;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+}
