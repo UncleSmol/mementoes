@@ -69,7 +69,6 @@ const ValidatedExcellence = () => {
   }, [scrollYProgress]);
 
   // Smoother, tighter parallax for viewport safety
-  const yContent = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const yImage = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
   const stages = [
