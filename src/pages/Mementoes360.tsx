@@ -23,7 +23,15 @@ const Mementoes360 = () => {
   const yText = useTransform(springScroll, [0, 1], ["0%", "120%"]);
   const floatingY = useTransform(springScroll, [0, 1], [0, -400]);
 
-  const bursaryPosts = [post1, post2, post3, post4, post5, post6, post7];
+  const bursaryPosts = [
+    { img: post1, text: "Official Ga-Nala Youth Bursary Call 2026" },
+    { img: post2, text: "Focus on Mechanical & Civil Engineering Trades" },
+    { img: post3, text: "Plumbing and Related Trade Specializations" },
+    { img: post4, text: "Application Requirements & Documentation" },
+    { img: post5, text: "Community Development Initiative Showcase" },
+    { img: post6, text: "Youth Skills Development & Training Pipeline" },
+    { img: post7, text: "Enrollment Final Call: Closing 27 Feb 2026" }
+  ];
 
   return (
     <div ref={containerRef} className="bg-[#05070a] text-left relative overflow-x-clip scrollbar-hide">
@@ -107,15 +115,21 @@ const Mementoes360 = () => {
                 </div>
 
                 {/* Grid of Posts - Using object-contain to prevent clipping */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {bursaryPosts.map((post, i) => (
-                    <div key={i} className="relative aspect-square bg-[#f8f8f8] overflow-hidden shadow-xl border border-gray-100 group">
-                      <img 
-                        src={post} 
-                        className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-700 hover:scale-105" 
-                        alt="" 
-                      />
-                      <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-all pointer-events-none" />
+                    <div key={i} className="flex flex-col gap-4 group">
+                      <div className="relative aspect-square bg-[#f8f8f8] overflow-hidden shadow-xl border border-gray-100">
+                        <img 
+                          src={post.img} 
+                          className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-700 hover:scale-105" 
+                          alt="" 
+                        />
+                        <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-all pointer-events-none" />
+                      </div>
+                      <div className="px-2">
+                        <span className="text-primary font-black text-[10px] uppercase tracking-widest block mb-1 opacity-40">Notice 0{i+1}</span>
+                        <p className="text-gray-500 font-light text-sm italic leading-tight">{post.text}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
