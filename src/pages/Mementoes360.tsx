@@ -73,10 +73,28 @@ const Mementoes360 = () => {
                 Skills & <br />
                 <span className="text-secondary italic font-light text-left">Trades 2026</span>
               </h2>
-              <div className="space-y-6 text-left">
-                <p className="text-lg text-gray-500 font-light leading-relaxed text-left">
-                  Dedicated to the growth of local talent, Mementoes launched a specialized bursary program for the youth of Ga-Nala.
-                </p>
+              <div className="space-y-8 text-left">
+                <div className="bg-white p-8 md:p-10 shadow-[0_30px_60px_rgba(0,0,0,0.05)] border-l-[12px] border-primary relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 -z-0 blur-3xl group-hover:bg-secondary/10 transition-colors" />
+                  <span className="text-primary font-black text-[10px] uppercase tracking-widest block mb-6 opacity-40">Program Manifesto</span>
+                  <p className="text-xl md:text-2xl text-primary font-bold uppercase tracking-tighter leading-tight mb-6 italic">
+                    "Empowering the next generation of industrial leaders in Ga-Nala through specialized technical education."
+                  </p>
+                  <p className="text-gray-500 font-light leading-relaxed mb-8">
+                    The Mementoes 2026 Bursary Program was specifically architected to bridge the local skills gap. By providing full financial and structural support for youth entering the fields of **Plumbing, Mechanical Engineering, and Civil Engineering**, we are not just funding education—we are building the future workforce of South Africa's industrial heartland.
+                  </p>
+                  <div className="grid grid-cols-2 gap-6 pt-6 border-t border-gray-100">
+                    <div className="flex flex-col">
+                      <span className="text-secondary font-black text-[9px] uppercase tracking-widest mb-1">Target Demographic</span>
+                      <span className="text-primary font-bold uppercase text-sm tracking-tight italic">Ga-Nala Youth</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-secondary font-black text-[9px] uppercase tracking-widest mb-1">Impact Radius</span>
+                      <span className="text-primary font-bold uppercase text-sm tracking-tight italic">eMalahleni Region</span>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="p-6 border-l-4 border-secondary bg-gray-50 text-left">
                   <span className="text-primary font-black text-[10px] uppercase tracking-widest block mb-2 text-left">Enrollment Status</span>
                   <p className="text-primary font-bold uppercase tracking-tighter text-xl leading-none italic text-left">Closing Date: 27 Feb 2026</p>
