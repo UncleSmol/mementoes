@@ -82,7 +82,7 @@ const PrivacyPolicy = () => {
             <h2 className="text-white font-black uppercase text-2xl tracking-tight text-left">7. Contact Information</h2>
             <p className="text-left">
               For any questions regarding this policy or to exercise your rights, please contact our Information Officer at:<br />
-              <span className="text-secondary font-bold">ntsako.khoza@yahoo.com</span>
+              <span className="text-secondary font-bold">admin@mementoes.co.za</span>
             </p>
           </section>
         </div>
