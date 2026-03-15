@@ -110,7 +110,7 @@ const Services = () => {
   const yBgHero = useTransform(smoothProgress, [0, 0.2], ["0%", "40%"]);
 
   return (
-    <div ref={containerRef} className="bg-dark selection:bg-secondary selection:text-white overflow-x-hidden scrollbar-hide relative">
+    <div ref={containerRef} className="bg-dark selection:bg-secondary selection:text-white overflow-x-clip scrollbar-hide relative">
       {/* Hero Section - Standardized */}
       <section className="h-screen w-full flex items-center justify-center bg-dark relative overflow-hidden pt-20">
         <div className="container mx-auto px-6 lg:px-16 relative z-10 text-center">

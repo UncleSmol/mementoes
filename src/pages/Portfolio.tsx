@@ -333,7 +333,7 @@ const Portfolio = () => {
   const yText = useTransform(springScroll, [0, 0.2], ["0%", "120%"]);
 
   return (
-    <div ref={containerRef} className="bg-primary selection:bg-secondary selection:text-white overflow-x-hidden scrollbar-hide relative">
+    <div ref={containerRef} className="bg-primary selection:bg-secondary selection:text-white overflow-x-clip scrollbar-hide relative">
 
       {/* Hero Section - Standardized */}
       <section className="relative h-screen w-full flex items-center justify-center bg-dark overflow-hidden px-6 lg:px-16 pt-24 md:pt-0">

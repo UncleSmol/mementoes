@@ -185,7 +185,7 @@ const AboutUs = () => {
   const yTextHero = useTransform(smoothScroll, [0, 0.2], ["0%", "120%"]);
 
   return (
-    <div ref={containerRef} className="bg-white text-left relative overflow-x-hidden scrollbar-hide">
+    <div ref={containerRef} className="bg-white text-left relative overflow-x-clip scrollbar-hide">
       {/* Hero Section - Standardized */}
       <section className="relative h-screen w-full flex items-center bg-dark overflow-hidden pt-24 md:pt-0">
         <motion.div style={{ y: yBg, scale: 1.1 }} className="absolute inset-0 z-0">

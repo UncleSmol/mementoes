@@ -26,7 +26,7 @@ const Mementoes360 = () => {
   const bursaryPosts = [post1, post2, post3, post4, post5, post6, post7];
 
   return (
-    <div ref={containerRef} className="bg-[#05070a] text-left relative overflow-x-hidden scrollbar-hide">
+    <div ref={containerRef} className="bg-[#05070a] text-left relative overflow-x-clip scrollbar-hide">
       {/* 1. HERO SECTION - Standardized */}
       <section className="relative h-screen w-full flex items-center bg-dark overflow-hidden pt-24 md:pt-0">
         <motion.div style={{ y: yBg, scale: 1.1 }} className="absolute inset-0 z-0">
