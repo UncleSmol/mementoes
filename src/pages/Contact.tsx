@@ -101,6 +101,56 @@ const Contact = () => {
             </form>
           </motion.div>
         </div>
+
+        {/* Map Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.6 }}
+          className="mt-32 lg:mt-60"
+        >
+          <div className="flex items-center gap-4 mb-8 md:mb-12">
+            <div className="w-12 h-[1px] bg-secondary"></div>
+            <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase">Global Location</span>
+          </div>
+          
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-4 space-y-8">
+              <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none">
+                Visit our <br />
+                <span className="text-secondary italic font-light">Headquarters</span>
+              </h2>
+              <div className="space-y-4">
+                <span className="text-white/20 font-black text-[10px] uppercase tracking-[0.5em] block">Office Address</span>
+                <p className="text-white font-bold uppercase text-xl md:text-2xl tracking-tighter leading-tight">
+                  4353 Nkomo Ave,<br />
+                  KwaThomas Mahlanguville,<br />
+                  eMalahleni, 1039
+                </p>
+              </div>
+              <a 
+                href="https://www.google.com/maps/dir/?api=1&destination=4353+Nkomo+Ave,+KwaThomas+Mahlanguville,+eMalahleni,+1039" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-4 text-secondary font-black uppercase text-xs tracking-widest group"
+              >
+                <span>Get Directions</span>
+                <i className="bi bi-arrow-right transition-transform group-hover:translate-x-2"></i>
+              </a>
+            </div>
+            
+            <div className="lg:col-span-8 relative aspect-video lg:aspect-[21/9] bg-white/5 overflow-hidden shadow-2xl border border-white/10 group">
+              <iframe 
+                src="https://maps.google.com/maps?q=4353%20Nkomo%20Ave%2C%20KwaThomas%20Mahlanguville%2C%20eMalahleni%2C%201039&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                className="absolute inset-0 w-full h-full grayscale invert opacity-60 contrast-125 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000"
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+              <div className="absolute inset-0 pointer-events-none border-4 border-secondary opacity-0 group-hover:opacity-10 transition-opacity" />
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       {/* Background Decorative Text */}
