@@ -67,9 +67,6 @@ const Contact = () => {
                 <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
                   <i className="bi bi-lightning-charge text-white text-lg md:text-xl group-hover:text-primary"></i>
                 </a>
-                <a href="#" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
-                  <i className="bi bi-instagram text-white text-lg md:text-xl group-hover:text-primary"></i>
-                </a>
               </div>
             </div>
           </motion.div>

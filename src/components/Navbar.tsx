@@ -149,9 +149,6 @@ const Navbar = () => {
                      <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
                        <i className="bi bi-lightning-charge text-xl"></i>
                      </a>
-                     <a href="#" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
-                       <i className="bi bi-instagram text-xl"></i>
-                     </a>
                    </div>
                 </motion.div>
               </nav>
