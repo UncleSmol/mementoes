@@ -16,11 +16,11 @@ const Footer = () => {
               Mementoes Trading is a 100% black women-owned, B-BBEE Level 1 contributor. We are an eco-conscious company providing exceptional logistics, waste management, and construction services.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors">
+              <a href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors">
                 <i className="bi bi-facebook"></i>
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors">
-                <i className="bi bi-linkedin"></i>
+              <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors group">
+                <i className="bi bi-lightning-charge text-white group-hover:text-primary"></i>
               </a>
               <a href="#" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors">
                 <i className="bi bi-instagram"></i>

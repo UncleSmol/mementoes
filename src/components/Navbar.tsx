@@ -143,11 +143,11 @@ const Navbar = () => {
                   className="mt-10 flex flex-col items-start gap-6"
                 >
                    <div className="flex gap-6">
-                     <a href="#" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
-                       <i className="bi bi-linkedin text-xl"></i>
-                     </a>
-                     <a href="#" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
+                     <a href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
                        <i className="bi bi-facebook text-xl"></i>
+                     </a>
+                     <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
+                       <i className="bi bi-lightning-charge text-xl"></i>
                      </a>
                      <a href="#" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
                        <i className="bi bi-instagram text-xl"></i>

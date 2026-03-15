@@ -61,11 +61,15 @@ const Contact = () => {
             <div>
               <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8">Social Ecosystem</h3>
               <div className="flex gap-4">
-                {['facebook', 'linkedin', 'instagram'].map((social) => (
-                  <a key={social} href="#" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
-                    <i className={`bi bi-${social} text-white text-lg md:text-xl group-hover:text-primary`}></i>
-                  </a>
-                ))}
+                <a href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
+                  <i className="bi bi-facebook text-white text-lg md:text-xl group-hover:text-primary"></i>
+                </a>
+                <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
+                  <i className="bi bi-lightning-charge text-white text-lg md:text-xl group-hover:text-primary"></i>
+                </a>
+                <a href="#" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
+                  <i className="bi bi-instagram text-white text-lg md:text-xl group-hover:text-primary"></i>
+                </a>
               </div>
             </div>
           </motion.div>
