@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
