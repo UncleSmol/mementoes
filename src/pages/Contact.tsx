@@ -21,20 +21,19 @@ const Contact = () => {
     setStatus('sending');
 
     try {
-      const result = await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_pbcgzyj',
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_m7idvge',
-        formRef.current!,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'PNPd9Qgg4bPgq1xb7'
-      );
-      console.log('EmailJS Success:', result.text);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) throw new Error('Failed to send');
+
       setStatus('success');
       setFormData({ user_name: '', user_email: '', subject: '', message: '' });
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error: any) {
-      console.error('EmailJS Error Detail:', error);
-      // Log the specific text if it exists
-      if (error?.text) console.error('EmailJS Error Message:', error.text);
+      console.error('Contact Form Error:', error);
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }
