@@ -18,7 +18,7 @@ const Hero = () => {
   const scale = useTransform(springScroll, [0, 1], [1, 1.1]);
 
   return (
-    <section ref={containerRef} className="relative h-[120vh] w-full flex items-center justify-start overflow-hidden bg-dark pt-20">
+    <section ref={containerRef} className="relative min-h-screen lg:h-[120vh] w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
       {/* Background with heavy parallax */}
       <motion.div 
         style={{ y: yBg, scale }}
@@ -39,16 +39,16 @@ const Hero = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center gap-4 mb-8"
+            className="flex items-center gap-4 mb-6 md:mb-8"
           >
-            <div className="w-16 h-[2px] bg-secondary"></div>
-            <span className="text-secondary font-black text-xs uppercase tracking-[0.5em]">
+            <div className="w-12 md:w-16 h-[2px] bg-secondary"></div>
+            <span className="text-secondary font-black text-[10px] md:text-xs uppercase tracking-[0.5em]">
               Level 1 B-BBEE • Women Owned
             </span>
           </motion.div>
           
           {/* Main Title with Split-Mask Reveal */}
-          <h1 className="text-6xl md:text-[10rem] font-black text-white leading-[0.85] uppercase tracking-tighter mb-10">
+          <h1 className="text-5xl md:text-7xl lg:text-[10vw] font-black text-white leading-[0.9] md:leading-[0.85] uppercase tracking-tighter mb-8 md:mb-10">
             <span className="block overflow-hidden">
               <motion.span 
                 initial={{ y: "100%" }}
@@ -75,15 +75,15 @@ const Hero = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-col md:flex-row items-start md:items-center gap-12"
+            className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
           >
-            <p className="text-xl md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
+            <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
               We redefine logistics, waste management, and construction through an eco-conscious lens. Precision engineering meets environmental stewardship.
             </p>
             
             <Link 
               to="/contact" 
-              className="group relative px-12 py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95"
+              className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base"
             >
               <span className="relative z-10">Start a Project</span>
               <motion.div 

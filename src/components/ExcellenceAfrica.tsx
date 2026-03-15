@@ -4,36 +4,36 @@ import { Link } from 'react-router-dom';
 
 const projects = [
   {
-    title: "Logistics Hub",
-    location: "Gauteng",
-    category: "Regional Flow",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600",
-    stat: "45k SQM",
-    desc: "Architecting the future of African material movement with surgical precision."
-  },
-  {
-    title: "Waste Tech",
-    location: "Mpumalanga",
-    category: "Ethical Disposal",
+    title: "Waste Bureau / REDISA",
+    location: "National Dealership Network",
+    category: "Waste Tyre Logistics",
     image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1600",
-    stat: "100% Compliant",
-    desc: "Engineering sustainable methodologies for the continent's centers."
+    stat: "DEA Partner",
+    desc: "Primary transporter of waste tyres from national dealerships to processing depots for the Dept. of Environmental Affairs."
   },
   {
-    title: "Civil Network",
-    location: "Western Cape",
-    category: "Structural Form",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600",
-    stat: "120km Grid",
-    desc: "Building foundations of African growth through civil infrastructure."
-  },
-  {
-    title: "Industrial",
-    location: "KwaZulu-Natal",
-    category: "Modern Base",
+    title: "Eskom / Kusile Site",
+    location: "Kusile Power Station",
+    category: "Infrastructure Support",
     image: "https://images.unsplash.com/photo-1489515229412-1f3a8f08dc34?q=80&w=1600",
-    stat: "Level 1 Built",
-    desc: "Creating structural landmarks that stand the test of time."
+    stat: "Mobile Solutions",
+    desc: "Comprehensive supply, rapid assembly, and professional maintenance of mobile office units at the Kusile Power Station site."
+  },
+  {
+    title: "Bidvest / Siemens",
+    location: "Durban / Richard's Bay",
+    category: "Specialized Cargo",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600",
+    stat: "Heavy Logistics",
+    desc: "Strategic transportation of heavy transformer appliances and critical cargo from major maritime hubs to power stations."
+  },
+  {
+    title: "Exxaro / Matla Mine",
+    location: "Mines 2 & 3",
+    category: "Industrial Services",
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600",
+    stat: "Facility Care",
+    desc: "Delivering general building maintenance and specialized industrial laundry services for Exxaro at the Matla mining complex."
   }
 ];
 
@@ -84,7 +84,7 @@ export const ExcellenceAfrica = () => {
             <div className="w-10 h-[1px] bg-secondary"></div>
             <div className="flex flex-col">
               <span className="text-secondary font-black text-[9px] tracking-[0.5em] uppercase">African Footprint</span>
-              <span className="text-white/30 text-[8px] font-light uppercase tracking-widest">Est. 2024</span>
+              <span className="text-white/30 text-[8px] font-light uppercase tracking-widest">Established 2012</span>
             </div>
           </div>
         </div>

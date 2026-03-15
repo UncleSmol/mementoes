@@ -39,8 +39,17 @@ export const PortfolioCarousel = () => {
 
   useEffect(() => {
     if (!emblaApi) return;
-    onSelect();
+    
+    // Initial call after a frame to avoid React render cycle warning
+    const timeout = setTimeout(() => {
+      onSelect();
+    }, 0);
+
     emblaApi.on('select', onSelect);
+    return () => {
+      clearTimeout(timeout);
+      emblaApi.off('select', onSelect);
+    };
   }, [emblaApi, onSelect]);
 
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
