@@ -1,6 +1,42 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    user_name: '',
+    user_email: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('sending');
+
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current!,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      setStatus('success');
+      setFormData({ user_name: '', user_email: '', subject: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
+  };
+
   return (
     <div className="bg-[#05070a] min-h-screen selection:bg-secondary selection:text-white pt-24 pb-20 lg:pt-60 lg:pb-40 px-6 lg:px-16 overflow-hidden relative">
       <div className="container mx-auto relative z-10">
@@ -11,7 +47,7 @@ const Contact = () => {
         >
           <div className="flex items-center gap-4 mb-6 md:mb-8">
             <div className="w-12 h-[1px] bg-secondary"></div>
-            <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase">Connect With Us</span>
+            <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Connect With Us</span>
           </div>
           <h1 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-12 md:mb-24">
             Let's Start a <br />
@@ -28,8 +64,8 @@ const Contact = () => {
             className="space-y-12 md:space-y-16"
           >
             <div>
-              <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8">Operational Hub</h3>
-              <div className="flex items-start gap-4 md:gap-6 group">
+              <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8 text-left">Operational Hub</h3>
+              <div className="flex items-start gap-4 md:gap-6 group text-left">
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-secondary transition-colors duration-500 shrink-0">
                   <i className="bi bi-geo-alt text-secondary text-lg md:text-xl"></i>
                 </div>
@@ -41,8 +77,8 @@ const Contact = () => {
             </div>
 
             <div>
-              <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8">Direct Lines</h3>
-              <div className="space-y-6 md:space-y-8">
+              <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8 text-left">Direct Lines</h3>
+              <div className="space-y-6 md:space-y-8 text-left">
                 <div className="flex items-center gap-4 md:gap-6 group">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-secondary transition-colors duration-500 shrink-0">
                     <i className="bi bi-telephone text-secondary text-lg md:text-xl"></i>
@@ -59,7 +95,7 @@ const Contact = () => {
             </div>
 
             <div>
-              <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8">Social Ecosystem</h3>
+              <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8 text-left">Social Ecosystem</h3>
               <div className="flex gap-4">
                 <a href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
                   <i className="bi bi-facebook text-white text-lg md:text-xl group-hover:text-primary"></i>
@@ -79,27 +115,84 @@ const Contact = () => {
             className="bg-white p-6 md:p-12 shadow-2xl relative"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 -z-10 blur-3xl"></div>
-            <form className="space-y-6 md:space-y-8">
-              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                <div className="space-y-2">
-                  <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block">Full Name</label>
-                  <input type="text" placeholder="John Doe" className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block">Email Address</label>
-                  <input type="email" placeholder="john@example.com" className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block">Subject</label>
-                <input type="text" placeholder="Project Inquiry" className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block">Message</label>
-                <textarea rows={4} placeholder="How can we help you?" className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter resize-none text-sm md:text-base" />
-              </div>
-              <button className="w-full py-4 md:py-6 bg-primary text-white font-black uppercase text-xs md:text-sm tracking-[0.4em] hover:bg-secondary hover:text-primary transition-all shadow-xl active:scale-95">Send Message</button>
-            </form>
+            
+            <AnimatePresence mode="wait">
+              {status === 'success' ? (
+                <motion.div 
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="h-full flex flex-col items-center justify-center py-20 text-center"
+                >
+                  <div className="w-20 h-20 bg-secondary flex items-center justify-center rounded-full mb-6">
+                    <i className="bi bi-check-lg text-primary text-4xl"></i>
+                  </div>
+                  <h3 className="text-primary font-black uppercase text-2xl mb-2">Message Sent</h3>
+                  <p className="text-gray-500 font-light">We'll get back to you shortly.</p>
+                </motion.div>
+              ) : (
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 md:space-y-8 text-left">
+                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Full Name</label>
+                      <input 
+                        required
+                        type="text" 
+                        name="user_name"
+                        value={formData.user_name}
+                        onChange={handleChange}
+                        placeholder="John Doe" 
+                        className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Email Address</label>
+                      <input 
+                        required
+                        type="email" 
+                        name="user_email"
+                        value={formData.user_email}
+                        onChange={handleChange}
+                        placeholder="john@example.com" 
+                        className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Subject</label>
+                    <input 
+                      required
+                      type="text" 
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Project Inquiry" 
+                      className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Message</label>
+                    <textarea 
+                      required
+                      rows={4} 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="How can we help you?" 
+                      className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter resize-none text-sm md:text-base" 
+                    />
+                  </div>
+                  <button 
+                    disabled={status === 'sending'}
+                    className="w-full py-4 md:py-6 bg-primary text-white font-black uppercase text-xs md:text-sm tracking-[0.4em] hover:bg-secondary hover:text-primary transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {status === 'sending' ? 'Sending...' : 'Send Message'}
+                  </button>
+                  {status === 'error' && <p className="text-red-500 text-[10px] font-black uppercase text-center mt-4">Failed to send. Please try again.</p>}
+                </form>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
 
@@ -113,12 +206,12 @@ const Contact = () => {
         >
           <div className="flex items-center gap-4 mb-8 md:mb-12">
             <div className="w-12 h-[1px] bg-secondary"></div>
-            <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase">Global Location</span>
+            <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Global Location</span>
           </div>
           
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
+          <div className="grid lg:grid-cols-12 gap-12 items-start text-left">
             <div className="lg:col-span-4 space-y-8">
-              <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none">
+              <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none text-left">
                 Visit our <br />
                 <span className="text-secondary italic font-light">Headquarters</span>
               </h2>
