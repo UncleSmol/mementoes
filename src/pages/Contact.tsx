@@ -21,17 +21,20 @@ const Contact = () => {
     setStatus('sending');
 
     try {
-      await emailjs.sendForm(
+      const result = await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_pbcgzyj',
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_m7idvge',
         formRef.current!,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'PNPd9Qgg4bPgq1xb7'
       );
+      console.log('EmailJS Success:', result.text);
       setStatus('success');
       setFormData({ user_name: '', user_email: '', subject: '', message: '' });
       setTimeout(() => setStatus('idle'), 5000);
-    } catch (error) {
-      console.error('EmailJS Error:', error);
+    } catch (error: any) {
+      console.error('EmailJS Error Detail:', error);
+      // Log the specific text if it exists
+      if (error?.text) console.error('EmailJS Error Message:', error.text);
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }
