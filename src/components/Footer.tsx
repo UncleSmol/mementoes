@@ -56,7 +56,11 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-gray-300">
                 <i className="bi bi-geo-alt text-secondary mt-1"></i>
-                <span>South Africa</span>
+                <span>
+                  4353 Nkomo Ave,<br />
+                  KwaThomas Mahlanguville,<br />
+                  eMalahleni, 1039
+                </span>
               </li>
               <li className="flex items-center gap-3 text-gray-300">
                 <i className="bi bi-telephone text-secondary"></i>
