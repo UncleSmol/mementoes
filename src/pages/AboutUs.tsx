@@ -41,8 +41,7 @@ const ValidatedExcellence = () => {
       logo: "https://th.bing.com/th/id/OIP.MIBoL61C8rkZW5IkOCYpIAHaD3?w=345&h=180&c=7&r=0&o=7&pid=1.7&rm=3",
       desc: "In strategic partnership with SAICA, we ensure rigorous operational success for large-scale industrial landscapes.",
       stat: "Host Built",
-      label: "Impact Node",
-      color: "secondary"
+      label: "Impact Node"
     },
     {
       id: "02",
@@ -52,8 +51,7 @@ const ValidatedExcellence = () => {
       logo: "https://www.sab.co.za/sites/g/files/seuoyk2041/files/brand_0.png",
       desc: "Accelerating supply-chain readiness through elite business mentoring to catalyze sustainable jobs and market access.",
       stat: "Finalist 8",
-      label: "Global Status",
-      color: "primary"
+      label: "Global Status"
     }
   ];
 
@@ -98,12 +96,12 @@ const ValidatedExcellence = () => {
         </AnimatePresence>
 
         {/* TOP ZONE */}
-        <div className="container mx-auto px-6 lg:px-16 z-50 pointer-events-none relative">
-          <div className="flex items-center gap-4">
+        <div className="container mx-auto px-6 lg:px-16 z-50 pointer-events-none relative text-left">
+          <div className="flex items-center gap-4 text-left">
             <div className="w-10 h-[1px] bg-secondary"></div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-left">
               <span className="text-secondary font-black text-[9px] tracking-[0.5em] uppercase text-left">Validated Excellence</span>
-              <span className="text-white/30 text-[8px] font-light uppercase tracking-widest mt-1">Strategic Catalyst</span>
+              <span className="text-white/30 text-[8px] font-light uppercase tracking-widest mt-1 text-left">Strategic Catalyst</span>
             </div>
           </div>
         </div>
@@ -139,12 +137,12 @@ const ValidatedExcellence = () => {
                     </h2>
                   </div>
                   <div className="lg:col-span-7 flex justify-end">
-                    <div className="bg-dark/50 backdrop-blur-2xl p-6 md:p-10 text-white relative shadow-2xl border-l-[8px] md:border-l-[12px] border-secondary w-full max-w-2xl lg:ml-auto">
-                      <p className="text-base md:text-xl font-light italic leading-relaxed mb-6 md:mb-10 opacity-80">
+                    <div className="bg-dark/50 backdrop-blur-2xl p-6 md:p-10 text-white relative shadow-2xl border-l-[8px] md:border-l-[12px] border-secondary w-full max-w-2xl lg:ml-auto text-left">
+                      <p className="text-base md:text-xl font-light italic leading-relaxed mb-6 md:mb-10 opacity-80 text-left">
                         "{catalysts[activeIndex].desc}"
                       </p>
-                      <div className="flex flex-wrap gap-6 md:gap-10 items-end">
-                         <div className="flex flex-col"><span className="text-secondary font-black text-[9px] md:text-[10px] uppercase mb-1 md:mb-2 tracking-[0.4em]">{catalysts[activeIndex].label}</span><span className="text-xl md:text-3xl font-black uppercase tracking-tighter">{catalysts[activeIndex].stat}</span></div>
+                      <div className="flex flex-wrap gap-6 md:gap-10 items-end text-left">
+                         <div className="flex flex-col text-left"><span className="text-secondary font-black text-[9px] md:text-[10px] uppercase mb-1 md:mb-2 tracking-[0.4em] text-left">{catalysts[activeIndex].label}</span><span className="text-xl md:text-3xl font-black uppercase tracking-tighter text-left">{catalysts[activeIndex].stat}</span></div>
                          <Link to="/portfolio" className="px-6 py-3 md:px-8 md:py-4 border border-white/20 text-white font-black uppercase text-[8px] md:text-[9px] tracking-[0.4em] hover:bg-white hover:text-primary transition-all ml-auto">Details</Link>
                       </div>
                     </div>
@@ -156,14 +154,14 @@ const ValidatedExcellence = () => {
         </div>
 
         {/* BOTTOM ZONE */}
-        <div className="container mx-auto px-6 lg:px-16 z-50 flex items-end justify-between pointer-events-none relative">
+        <div className="container mx-auto px-6 lg:px-16 z-50 flex items-end justify-between pointer-events-none relative py-4 md:py-2">
            <div className="flex flex-col gap-4 text-left">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-left">
                 {catalysts.map((_, i) => (
                   <div key={i} className={`h-[2px] transition-all duration-500 ${activeIndex === i ? 'w-8 bg-secondary' : 'w-2 bg-white/10'}`} />
                 ))}
               </div>
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-6 text-left">
                 <span className="text-secondary font-black text-[10px] tracking-widest uppercase italic text-left">0{activeIndex + 1} / 02</span>
                 <div className="w-32 md:w-48 h-[1px] bg-white/10 relative overflow-hidden">
                    <motion.div style={{ scaleX: scrollYProgress }} className="absolute inset-0 bg-secondary origin-left" />
@@ -261,9 +259,9 @@ const AboutUs = () => {
       <ValidatedExcellence />
 
       <section className="relative py-24 md:py-60 w-full flex items-center justify-center bg-primary overflow-hidden text-center">
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 1 }}>
-            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase leading-none mb-12 md:mb-16 tracking-tighter">Let's <br /> <span className="text-secondary italic">Scale</span></h2>
+        <div className="container mx-auto px-6 text-center relative z-10 text-center">
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 1 }} className="text-center">
+            <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase leading-none mb-12 md:mb-16 tracking-tighter text-center">Let's <br /> <span className="text-secondary italic text-center">Scale</span></h2>
             <button className="inline-block px-10 py-5 md:px-16 md:py-8 bg-secondary text-primary font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl active:scale-95 text-xl md:text-2xl">Join Our Network</button>
           </motion.div>
         </div>
