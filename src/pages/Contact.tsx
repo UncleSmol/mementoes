@@ -27,19 +27,18 @@ const Contact = () => {
         body: JSON.stringify(formData)
       });
 
-      if (response.status === 429) {
-        setStatus('rate-limited');
-        setTimeout(() => setStatus('idle'), 5000);
-        return;
-      }
+      const result = await response.json();
 
-      if (!response.ok) throw new Error('Failed to send');
+      if (!response.ok) {
+        console.error('Backend Error:', result);
+        throw new Error(result.error || 'Failed to send');
+      }
 
       setStatus('success');
       setFormData({ user_name: '', user_email: '', user_phone: '', subject: '', message: '', honeypot: '' });
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error: any) {
-      console.error('Contact Form Error:', error);
+      console.error('Contact Form Error:', error.message);
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }
