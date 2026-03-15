@@ -22,10 +22,10 @@ const Contact = () => {
 
     try {
       await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_pbcgzyj',
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_m7idvge',
         formRef.current!,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'PNPd9Qgg4bPgq1xb7'
       );
       setStatus('success');
       setFormData({ user_name: '', user_email: '', subject: '', message: '' });
