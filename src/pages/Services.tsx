@@ -67,24 +67,24 @@ const ServiceContent = ({ s, i, progress }: { s: Service, i: number, progress: M
   const scale = useTransform(progress, [start - 0.1, start, end, end + 0.1], [0.9, 1, 1, 0.9]);
 
   return (
-    <motion.div style={{ opacity, y, scale }} className="absolute inset-0 flex flex-col justify-center translate-y-[-5%] md:translate-y-0 will-change-transform pointer-events-none pb-6 md:pb-24 px-4 md:px-0">
+    <motion.div style={{ opacity, y, scale }} className="absolute inset-0 flex flex-col justify-center translate-y-[-5%] md:translate-y-0 will-change-transform pointer-events-none pb-12 md:pb-32 lg:pb-40 px-4 md:px-0">
       <div className="max-w-6xl w-full pointer-events-auto overflow-hidden">
-        <div className="flex items-center gap-3 mb-3 md:mb-6">
-          <span className="text-secondary font-black text-lg md:text-xl italic">0{i+1}</span>
+        <div className="flex items-center gap-3 mb-3 md:mb-6 text-left">
+          <span className="text-secondary font-black text-lg md:text-xl italic text-left">0{i+1}</span>
           <div className="w-8 md:w-12 h-[1px] bg-white/20" />
-          <span className="text-white/40 font-black text-[8px] md:text-[9px] uppercase tracking-[0.4em]">Service Pillar</span>
+          <span className="text-white/40 font-black text-[8px] md:text-[9px] uppercase tracking-[0.4em] text-left">Service Pillar</span>
         </div>
-        <h2 className="text-2xl md:text-5xl lg:text-[5.5vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-4 md:mb-8">{s.title}<br /><span className="text-secondary italic font-light">{s.subtitle}</span></h2>
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6 lg:gap-16 items-start">
-          <div className="space-y-4 md:space-y-6">
-            <p className="text-sm md:text-lg lg:text-xl text-white/70 font-light italic leading-relaxed max-w-lg">"{s.desc}"</p>
+        <h2 className="text-2xl md:text-5xl lg:text-[5.5vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-4 md:mb-8 text-left">{s.title}<br /><span className="text-secondary italic font-light text-left">{s.subtitle}</span></h2>
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6 lg:gap-16 items-start text-left">
+          <div className="space-y-4 md:space-y-6 text-left">
+            <p className="text-sm md:text-lg lg:text-xl text-white/70 font-light italic leading-relaxed max-w-lg text-left">"{s.desc}"</p>
             <Link to="/contact" className="inline-block px-6 py-2.5 md:px-10 md:py-4 bg-secondary text-primary font-black uppercase text-[9px] md:text-[10px] tracking-widest hover:bg-white transition-all">Request Solution</Link>
           </div>
-          <div className="flex flex-col gap-1.5 md:gap-3 border-l border-white/10 pl-4 md:pl-12">
+          <div className="flex flex-col gap-1.5 md:gap-3 border-l border-white/10 pl-4 md:pl-12 text-left">
             {s.details.map((d, di) => (
-              <div key={di} className="flex items-center gap-3 group">
+              <div key={di} className="flex items-center gap-3 group text-left">
                 <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-secondary opacity-40 group-hover:opacity-100 transition-opacity" />
-                <span className="text-white font-light text-[11px] md:text-base tracking-wide">{d}</span>
+                <span className="text-white font-light text-[11px] md:text-base tracking-wide uppercase text-left">{d}</span>
               </div>
             ))}
           </div>
@@ -115,17 +115,18 @@ const ServicesCTA = () => {
 
   return (
     <section ref={ctaRef} className="relative py-24 md:py-40 lg:py-60 px-6 lg:px-16 bg-primary overflow-hidden text-center">
-      <motion.div style={{ y: yContent }} className="container mx-auto relative z-10">
+      <motion.div style={{ y: yContent }} className="container mx-auto relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
+          className="text-center"
         >
-           <span className="text-secondary font-black text-xs tracking-[0.5em] uppercase mb-10 block">Ready to Start?</span>
-           <h2 className="text-5xl md:text-8xl lg:text-[10rem] font-black text-white uppercase leading-[0.8] tracking-tighter mb-16">
+           <span className="text-secondary font-black text-xs tracking-[0.5em] uppercase mb-10 block text-center">Ready to Start?</span>
+           <h2 className="text-5xl md:text-8xl lg:text-[10rem] font-black text-white uppercase leading-[0.8] tracking-tighter mb-16 text-center">
              Build your <br />
-             <span className="text-secondary italic font-light">Legacy</span>
+             <span className="text-secondary italic font-light text-center">Legacy</span>
            </h2>
            <Link 
             to="/contact" 

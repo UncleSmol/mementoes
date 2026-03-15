@@ -51,17 +51,17 @@ const Mementoes360 = () => {
       </section>
 
       {/* 2. BURSARY PROGRAM SECTION */}
-      <section className="relative py-20 md:py-40 bg-white overflow-hidden text-left">
+      <section className="relative py-24 md:py-40 lg:py-60 bg-white overflow-hidden text-left">
         <motion.span style={{ y: floatingY }} className="absolute top-0 left-0 text-[20vw] font-black text-primary/[0.02] leading-none pointer-events-none select-none -z-0 uppercase">Programs</motion.span>
         
         <div className="container mx-auto px-6 lg:px-16 relative z-10">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
             <div className="lg:col-span-5 sticky top-32">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-10 h-[2px] bg-secondary"></div>
-                <span className="text-secondary font-black text-[10px] tracking-[0.4em] uppercase text-left">Ga-Nala Youth Empowerment</span>
+              <div className="flex items-center gap-4 mb-6 text-left">
+                <div className="w-12 md:w-16 h-[2px] bg-secondary text-left"></div>
+                <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Ga-Nala Youth Empowerment</span>
               </div>
-              <h2 className="text-4xl md:text-6xl font-black text-primary uppercase leading-[0.9] mb-8 tracking-tighter text-left">
+              <h2 className="text-4xl md:text-7xl lg:text-8xl font-black text-primary uppercase leading-[0.9] mb-8 tracking-tighter text-left">
                 Skills & <br />
                 <span className="text-secondary italic font-light">Trades 2026</span>
               </h2>

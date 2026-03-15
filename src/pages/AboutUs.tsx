@@ -38,22 +38,22 @@ const ValidatedExcellence = () => {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   // Chapter 1 (Exxaro) Range: 0 -> 0.5
-  const opacity1 = useTransform(smoothProgress, [0, 0.4, 0.5, 0.6], [1, 1, 0, 0]);
-  const y1 = useTransform(smoothProgress, [0, 0.4, 0.6], [0, 0, -100]);
+  const opacity1 = useTransform(smoothProgress, [0, 0.35, 0.45, 0.55], [0, 1, 1, 0]);
+  const y1 = useTransform(smoothProgress, [0, 0.35, 0.55], [100, 0, -100]);
   
   // Chapter 2 (SAB) Range: 0.5 -> 1
-  const opacity2 = useTransform(smoothProgress, [0.4, 0.5, 0.6, 1], [0, 0, 1, 1]);
-  const y2 = useTransform(smoothProgress, [0.4, 0.6, 1], [100, 0, 0]);
+  const opacity2 = useTransform(smoothProgress, [0.45, 0.55, 0.85, 1], [0, 1, 1, 0]);
+  const y2 = useTransform(smoothProgress, [0.45, 0.55, 1], [100, 0, -100]);
 
   // Background Morphing
-  const bgOpacity1 = useTransform(smoothProgress, [0.4, 0.6], [0.25, 0]);
-  const bgOpacity2 = useTransform(smoothProgress, [0.4, 0.6], [0, 0.25]);
+  const bgOpacity1 = useTransform(smoothProgress, [0, 0.4, 0.6], [0.25, 0.25, 0]);
+  const bgOpacity2 = useTransform(smoothProgress, [0.4, 0.6, 1], [0, 0.25, 0.25]);
 
   const xTitle = useTransform(smoothProgress, [0, 1], ["-10%", "10%"]);
 
   return (
-    <section ref={containerRef} className="relative h-[400vh] bg-dark text-left">
-      <div className="sticky top-0 min-h-screen w-full overflow-hidden flex flex-col justify-center py-20 md:py-0">
+    <section ref={containerRef} className="relative h-[300vh] bg-dark text-left">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
         
         {/* Continuous BG Morph */}
         <div className="absolute inset-0 z-0">
@@ -75,8 +75,8 @@ const ValidatedExcellence = () => {
           <span className="text-[25vw] font-black text-white uppercase leading-none">VALIDATED EXCELLENCE</span>
         </motion.div>
 
-        <div className="container mx-auto px-6 lg:px-16 relative z-40 w-full mt-12 md:mt-0">
-          <div className="relative min-h-[60vh] md:h-[70vh] flex items-center justify-center">
+        <div className="container mx-auto px-6 lg:px-16 relative z-40 w-full">
+          <div className="relative h-[70vh] flex items-center justify-center">
             
             {/* Chapter 01: Exxaro */}
             <motion.div style={{ opacity: opacity1, y: y1 }} className="absolute inset-0 w-full flex items-center pointer-events-none">
@@ -179,16 +179,16 @@ const AboutUs = () => {
         </div>
       </section>
 
-      <section className="relative py-20 md:py-60 border-b border-gray-50 overflow-hidden text-left bg-white">
+      <section className="relative py-24 md:py-40 lg:py-60 border-b border-gray-50 overflow-hidden text-left bg-white">
         <motion.span style={{ y: floatingY }} className="absolute top-0 right-0 text-[20vw] font-black text-primary/[0.02] leading-none pointer-events-none select-none -z-10">EVOLUTION</motion.span>
         <div className="container mx-auto px-6 lg:px-16 text-left">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start text-left">
             <div className="lg:col-span-8 text-left">
-              <RevealText text="Breaking Silence Forging Legacy" className="text-3xl md:text-[7vw] font-black text-primary uppercase leading-[0.9] mb-8 md:mb-12 tracking-tighter" />
+              <RevealText text="Breaking Silence Forging Legacy" className="text-3xl md:text-7xl lg:text-8xl font-black text-primary uppercase leading-[0.9] mb-8 md:mb-12 tracking-tighter" />
               <div className="space-y-8 md:space-y-12 max-w-3xl">
                 <h3 className="text-lg md:text-3xl font-light text-primary italic leading-tight border-l-4 md:border-l-8 border-secondary pl-6 md:pl-8">"Nature holds no voice of its own. We have made it our mission to be the echo of the environment."</h3>
-                <div className="space-y-8 md:space-y-10 max-w-2xl">
-                  <p className="text-base md:text-xl text-gray-500 font-light leading-relaxed">Founded in 2012 by <span className="font-bold text-primary italic">Zodwa Mlangeni</span>, Mementoes Trading has scaled from a local endeavor into a multi-sector force serving a 100km radius from Witbank.</p>
+                <div className="space-y-8 md:space-y-10 max-w-2xl text-left">
+                  <p className="text-base md:text-xl text-gray-500 font-light leading-relaxed text-left">Founded in 2012 by <span className="font-bold text-primary italic">Zodwa Mlangeni</span>, Mementoes Trading has scaled from a local endeavor into a multi-sector force serving a 100km radius from Witbank.</p>
                   <div className="flex flex-wrap gap-8 md:gap-12 pt-4">
                      <div className="flex flex-col"><span className="text-3xl md:text-4xl font-black text-primary leading-none">07</span><span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-secondary mt-2 md:mt-3">Sustainable Jobs</span></div>
                      <div className="flex flex-col border-l border-gray-100 pl-8 md:pl-12"><span className="text-3xl md:text-4xl font-black text-primary leading-none">100KM</span><span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-secondary mt-2 md:mt-3">Operational Radius</span></div>
