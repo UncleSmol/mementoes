@@ -15,26 +15,27 @@ import post7 from '../assets/bursaryassets/Mementoes(Facebook Post7).png';
 import newLogo from '../assets/Mementoes Logo.png';
 
 const Mementoes360 = () => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-  const smoothScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const springScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   
-  const yBg = useTransform(smoothScroll, [0, 0.2], ["0%", "10%"]);
-  const floatingY = useTransform(smoothScroll, [0, 1], [0, -400]);
+  const yBg = useTransform(springScroll, [0, 1], ["0%", "40%"]);
+  const yText = useTransform(springScroll, [0, 1], ["0%", "120%"]);
+  const floatingY = useTransform(springScroll, [0, 1], [0, -400]);
 
   const bursaryPosts = [post1, post2, post3, post4, post5, post6, post7];
 
   return (
     <div ref={containerRef} className="bg-[#05070a] text-left relative overflow-x-hidden scrollbar-hide">
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-[80vh] md:h-screen w-full flex items-center bg-dark overflow-hidden pt-24 md:pt-0">
+      {/* 1. HERO SECTION - Standardized */}
+      <section className="relative h-screen w-full flex items-center bg-dark overflow-hidden pt-24 md:pt-0">
         <motion.div style={{ y: yBg, scale: 1.1 }} className="absolute inset-0 z-0">
           <img src={post5} className="w-full h-full object-cover grayscale brightness-[0.2] contrast-125" alt="" />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-transparent to-dark" />
         </motion.div>
         <div className="container mx-auto px-6 lg:px-16 relative z-10 text-left">
-          <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
-            <div className="flex items-center gap-4 mb-6 md:mb-10">
+          <motion.div style={{ y: yText }}>
+            <div className="flex items-center gap-4 mb-6 md:mb-10 text-left">
               <div className="w-12 md:w-16 h-[2px] bg-secondary"></div>
               <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Impact Ecosystem</span>
             </div>
@@ -88,15 +89,15 @@ const Mementoes360 = () => {
 
             <div className="lg:col-span-7">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Main Video Ad */}
-                <div className="md:col-span-2 relative aspect-video bg-dark overflow-hidden shadow-2xl border-l-8 border-secondary group">
+                {/* Main Video Ad - Adjusted for Mobile Scale (Vertical) */}
+                <div className="md:col-span-2 relative aspect-[9/16] md:aspect-video bg-dark overflow-hidden shadow-2xl border-l-8 border-secondary group">
                   <video 
                     src={vid1} 
                     autoPlay 
                     muted 
                     loop 
                     playsInline 
-                    className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 transition-all duration-700" 
+                    className="w-full h-full object-contain md:object-cover grayscale brightness-75 group-hover:grayscale-0 transition-all duration-700" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent opacity-60" />
                   <div className="absolute bottom-6 left-6">
@@ -105,15 +106,15 @@ const Mementoes360 = () => {
                   </div>
                 </div>
 
-                {/* Grid of Posts */}
+                {/* Grid of Posts - Using object-contain to prevent clipping */}
                 {bursaryPosts.map((post, i) => (
-                  <div key={i} className="relative aspect-square bg-dark overflow-hidden shadow-xl border border-gray-100 group">
+                  <div key={i} className="relative aspect-square bg-[#f8f8f8] overflow-hidden shadow-xl border border-gray-100 group">
                     <img 
                       src={post} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 hover:scale-110" 
+                      className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-700 hover:scale-105" 
                       alt="" 
                     />
-                    <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-all pointer-events-none" />
+                    <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-all pointer-events-none" />
                   </div>
                 ))}
               </div>
@@ -137,14 +138,15 @@ const Mementoes360 = () => {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-            <div className="lg:col-span-7 relative aspect-video bg-[#0a0c10] shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-l-[16px] border-primary group">
+            {/* Identity Video - Adjusted for Mobile Scale (Vertical) */}
+            <div className="lg:col-span-7 relative aspect-[9/16] md:aspect-video bg-[#0a0c10] shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-l-[16px] border-primary group">
               <video 
                 src={vid2} 
                 autoPlay 
                 muted 
                 loop 
                 playsInline 
-                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
+                className="w-full h-full object-contain md:object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
               />
               <div className="absolute inset-0 bg-primary/10 mix-blend-overlay pointer-events-none" />
               <div className="absolute bottom-8 right-8 text-right">

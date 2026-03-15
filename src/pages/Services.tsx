@@ -151,10 +151,38 @@ const Services = () => {
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const xTitle = useTransform(smoothProgress, [0, 1], ["-10%", "10%"]);
+  const yTextHero = useTransform(smoothProgress, [0, 0.2], ["0%", "120%"]);
+  const yBgHero = useTransform(smoothProgress, [0, 0.2], ["0%", "40%"]);
 
   return (
-    <div className="bg-dark selection:bg-secondary selection:text-white">
-      <div ref={containerRef} className="relative h-[500vh] bg-dark text-left">
+    <div ref={containerRef} className="bg-dark selection:bg-secondary selection:text-white overflow-x-hidden scrollbar-hide relative">
+      {/* Hero Section - Standardized */}
+      <section className="h-screen w-full flex items-center justify-center bg-dark relative overflow-hidden pt-20">
+        <div className="container mx-auto px-6 lg:px-16 relative z-10 text-center">
+          <motion.div
+            style={{ y: yTextHero }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-12 h-[1px] bg-secondary" />
+              <span className="text-secondary font-black text-xs tracking-[0.5em] uppercase">Core Capabilities</span>
+              <div className="w-12 h-[1px] bg-secondary" />
+            </div>
+            <h1 className="text-5xl md:text-8xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter">
+              Integrated <br />
+              <span className="text-secondary italic font-light">Excellence</span>
+            </h1>
+          </motion.div>
+        </div>
+        <motion.div 
+          style={{ y: yBgHero }}
+          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2000')] bg-cover bg-center grayscale brightness-[0.15] contrast-125 opacity-50" 
+        />
+      </section>
+
+      <div className="relative h-[500vh] bg-dark text-left">
         <div className="sticky top-0 h-screen w-full overflow-hidden grid grid-rows-[auto_1fr_auto] pt-24 pb-4 md:pt-20 md:pb-8 lg:pt-24 lg:pb-12">
           
           {/* BG Layer - Interpolated for smooth cross-fade */}

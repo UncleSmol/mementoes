@@ -1,14 +1,15 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 const Contact = () => {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error' | 'rate-limited'>('idle');
   const [formData, setFormData] = useState({
     user_name: '',
     user_email: '',
+    user_phone: '',
     subject: '',
-    message: ''
+    message: '',
+    honeypot: '' // Spam protection
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -26,10 +27,16 @@ const Contact = () => {
         body: JSON.stringify(formData)
       });
 
+      if (response.status === 429) {
+        setStatus('rate-limited');
+        setTimeout(() => setStatus('idle'), 5000);
+        return;
+      }
+
       if (!response.ok) throw new Error('Failed to send');
 
       setStatus('success');
-      setFormData({ user_name: '', user_email: '', subject: '', message: '' });
+      setFormData({ user_name: '', user_email: '', user_phone: '', subject: '', message: '', honeypot: '' });
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error: any) {
       console.error('Contact Form Error:', error);
@@ -39,7 +46,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-[#05070a] min-h-screen selection:bg-secondary selection:text-white pt-24 pb-20 lg:pt-60 lg:pb-40 px-6 lg:px-16 overflow-hidden relative">
+    <div className="bg-[#05070a] min-h-screen selection:bg-secondary selection:text-white pt-24 pb-20 lg:pt-60 lg:pb-40 px-6 lg:px-16 overflow-hidden relative scrollbar-hide">
       <div className="container mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -72,7 +79,7 @@ const Contact = () => {
                 </div>
                 <div className="space-y-2">
                   <span className="text-white font-black uppercase text-base md:text-lg tracking-tight block">South Africa</span>
-                  <p className="text-white/40 font-light text-sm md:text-lg">Central Operations - Serving a 100km radius from Witbank.</p>
+                  <p className="text-white/40 font-light text-sm md:text-lg">4353 Nkomo Ave, KwaThomas Mahlanguville, eMalahleni, 1039</p>
                 </div>
               </div>
             </div>
@@ -133,7 +140,10 @@ const Contact = () => {
                   <p className="text-gray-500 font-light">We'll get back to you shortly.</p>
                 </motion.div>
               ) : (
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 md:space-y-8 text-left">
+                <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 text-left">
+                  {/* Honeypot Field (Hidden) */}
+                  <input type="text" name="honeypot" value={formData.honeypot} onChange={handleChange} className="hidden" />
+                  
                   <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                     <div className="space-y-2">
                       <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Full Name</label>
@@ -160,18 +170,33 @@ const Contact = () => {
                       />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Subject</label>
-                    <input 
-                      required
-                      type="text" 
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      placeholder="Project Inquiry" 
-                      className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
-                    />
+
+                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Phone Number</label>
+                      <input 
+                        type="tel" 
+                        name="user_phone"
+                        value={formData.user_phone}
+                        onChange={handleChange}
+                        placeholder="+27..." 
+                        className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Subject</label>
+                      <input 
+                        required
+                        type="text" 
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        placeholder="Project Inquiry" 
+                        className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
+                      />
+                    </div>
                   </div>
+
                   <div className="space-y-2">
                     <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Message</label>
                     <textarea 
@@ -184,13 +209,16 @@ const Contact = () => {
                       className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter resize-none text-sm md:text-base" 
                     />
                   </div>
+                  
                   <button 
                     disabled={status === 'sending'}
                     className="w-full py-4 md:py-6 bg-primary text-white font-black uppercase text-xs md:text-sm tracking-[0.4em] hover:bg-secondary hover:text-primary transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {status === 'sending' ? 'Sending...' : 'Send Message'}
                   </button>
+                  
                   {status === 'error' && <p className="text-red-500 text-[10px] font-black uppercase text-center mt-4">Failed to send. Please try again.</p>}
+                  {status === 'rate-limited' && <p className="text-orange-500 text-[10px] font-black uppercase text-center mt-4">Too many requests. Please wait a minute.</p>}
                 </form>
               )}
             </AnimatePresence>

@@ -18,7 +18,7 @@ const Hero = () => {
   const scale = useTransform(springScroll, [0, 1], [1, 1.1]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen lg:h-[120vh] w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
+    <section ref={containerRef} className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
       {/* Background with heavy parallax */}
       <motion.div 
         style={{ y: yBg, scale }}

@@ -152,27 +152,29 @@ const ValidatedExcellence = () => {
 };
 
 const AboutUs = () => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const smoothScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const yBg = useTransform(smoothScroll, [0, 0.2], ["0%", "10%"]);
-  const yImage = useTransform(smoothScroll, [0.1, 0.4], ["0%", "15%"]);
+  const yBg = useTransform(smoothScroll, [0, 0.2], ["0%", "40%"]);
+  const yImageParallax = useTransform(smoothScroll, [0.1, 0.4], ["0%", "15%"]);
   const floatingY = useTransform(smoothScroll, [0, 1], [0, -400]);
+  const yTextHero = useTransform(smoothScroll, [0, 0.2], ["0%", "120%"]);
 
   return (
-    <div ref={containerRef} className="bg-white text-left relative">
-      <section className="relative min-h-[80vh] md:h-screen w-full flex items-center bg-dark overflow-hidden pt-24 md:pt-0">
+    <div ref={containerRef} className="bg-white text-left relative overflow-x-hidden scrollbar-hide">
+      {/* Hero Section - Standardized */}
+      <section className="relative h-screen w-full flex items-center bg-dark overflow-hidden pt-24 md:pt-0">
         <motion.div style={{ y: yBg, scale: 1.1 }} className="absolute inset-0 z-0">
           <img src="https://images.unsplash.com/photo-1573164574511-73c773193279?q=80&w=2000" className="w-full h-full object-cover grayscale brightness-[0.3] contrast-125" alt="" />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-transparent to-dark" />
         </motion.div>
         <div className="container mx-auto px-6 lg:px-16 relative z-10 text-left">
-          <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
-            <div className="flex items-center gap-4 mb-6 md:mb-10">
-              <div className="w-12 md:w-16 h-[2px] bg-secondary"></div>
-              <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase">Established 2012</span>
+          <motion.div style={{ y: yTextHero }}>
+            <div className="flex items-center gap-4 mb-6 md:mb-10 text-left">
+              <div className="w-12 md:w-16 h-[2px] bg-secondary text-left"></div>
+              <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Established 2012</span>
             </div>
-            <h1 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter">The Mementoes <br /><span className="text-secondary italic font-light">Story</span></h1>
+            <h1 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter text-left">The Mementoes <br /><span className="text-secondary italic font-light text-left">Story</span></h1>
           </motion.div>
         </div>
       </section>
@@ -198,7 +200,7 @@ const AboutUs = () => {
               <div className="w-full aspect-[4/5] bg-primary shadow-2xl relative">
                 <div className="absolute inset-0 overflow-hidden">
                   <motion.img 
-                    style={{ y: yImage }}
+                    style={{ y: yImageParallax }}
                     src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1200" 
                     className="w-full h-[120%] object-cover brightness-75 grayscale contrast-125" 
                     alt="" 

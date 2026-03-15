@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -138,7 +138,7 @@ const InfiniteLogoScroll = () => {
             <div className="w-12 h-[1px] bg-secondary"></div>
             <span className="text-secondary font-black text-[10px] tracking-[0.6em] uppercase">Validated Network</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-primary uppercase tracking-tighter mb-6">Strategic <span className="text-secondary italic font-light">Alliances</span></h2>
+          <h2 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-primary uppercase tracking-tighter mb-6">Strategic <span className="text-secondary italic font-light">Alliances</span></h2>
           <p className="text-gray-500 font-light text-lg md:text-xl max-w-2xl leading-relaxed">
             We are proud to collaborate with Africa's most influential industrial leaders and governmental bodies. These partnerships are the foundation of our operational excellence and shared impact.
           </p>
@@ -325,34 +325,44 @@ const PortfolioCTA = () => {
 };
 
 const Portfolio = () => {
-  return (
-    <div className="bg-primary selection:bg-secondary selection:text-white overflow-x-hidden scrollbar-hide">
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+  const springScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  
+  const yBg = useTransform(springScroll, [0, 0.2], ["0%", "40%"]);
+  const yText = useTransform(springScroll, [0, 0.2], ["0%", "120%"]);
 
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] md:h-screen w-full flex items-center justify-center bg-dark overflow-hidden px-6 lg:px-16 pt-24 md:pt-0">
+  return (
+    <div ref={containerRef} className="bg-primary selection:bg-secondary selection:text-white overflow-x-hidden scrollbar-hide relative">
+
+      {/* Hero Section - Standardized */}
+      <section className="relative h-screen w-full flex items-center justify-center bg-dark overflow-hidden px-6 lg:px-16 pt-24 md:pt-0">
         <div className="container mx-auto relative z-10 text-left">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            style={{ y: yText }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            <div className="flex items-center gap-4 mb-6 md:mb-10">
+            <div className="flex items-center gap-4 mb-6 md:mb-10 text-left">
               <div className="w-12 md:w-16 h-[2px] bg-secondary"></div>
-              <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase">Validated Impact</span>
+              <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Validated Impact</span>
             </div>
-            <h1 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-6 md:mb-12">
+            <h1 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-6 md:mb-12 text-left">
               The Project <br />
               <span className="text-secondary italic font-light">Ecosystem</span>
             </h1>
-            <p className="text-base md:text-3xl text-white/30 font-light max-w-3xl leading-tight italic">
+            <p className="text-base md:text-3xl text-white/30 font-light max-w-3xl leading-tight italic text-left">
               A comprehensive showcase of high-stakes logistics, structural maintenance, and environmental advocacy.
             </p>
           </motion.div>
         </div>
 
         {/* Background Decorative Layer */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2000')] bg-cover bg-center grayscale brightness-[0.15] contrast-125"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-dark"></div>
+        <motion.div style={{ y: yBg }} className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2000')] bg-cover bg-center grayscale brightness-[0.15] contrast-125"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-dark"></div>
+        </motion.div>
       </section>
 
       {/* Layered Projects */}
