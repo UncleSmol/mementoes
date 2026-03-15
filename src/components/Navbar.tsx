@@ -40,6 +40,7 @@ const Navbar = () => {
     { name: 'Home', path: '/', icon: 'bi-house' },
     { name: 'About Us', path: '/about', icon: 'bi-people' },
     { name: 'Services', path: '/services', icon: 'bi-grid' },
+    { name: 'Mementoes 360', path: '/mementoes360', icon: 'bi-lightning-charge' },
     { name: 'Portfolio', path: '/portfolio', icon: 'bi-collection' },
     { name: 'Contact', path: '/contact', icon: 'bi-envelope' },
   ];

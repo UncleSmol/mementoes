@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Services from './pages/Services';
+import Mementoes360 from './pages/Mementoes360';
 import Portfolio from './pages/Portfolio';
 import Contact from './pages/Contact';
 import Page404 from './pages/Page404';
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/mementoes360" element={<Mementoes360 />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/contact" element={<Contact />} />
             {/* Catch-all route for 404 */}
