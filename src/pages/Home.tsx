@@ -11,34 +11,34 @@ const MissionSection = () => {
     offset: ["start end", "end start"]
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={containerRef} className="py-32 md:py-60 bg-white relative overflow-hidden text-left">
-      <div className="container mx-auto px-6 lg:px-16 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
-          <motion.div style={{ opacity }} className="space-y-10">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-[2px] bg-secondary"></div>
-              <span className="text-secondary font-black text-xs tracking-[0.5em] uppercase">Core Mission</span>
+    <section ref={containerRef} className="py-20 md:py-60 bg-white relative overflow-hidden text-left">
+      <div className="container mx-auto px-6 lg:px-16 relative z-10 text-left">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center text-left">
+          <motion.div style={{ opacity }} className="space-y-8 md:space-y-10 text-left">
+            <div className="flex items-center gap-4 text-left">
+              <div className="w-12 h-[2px] bg-secondary text-left"></div>
+              <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Core Mission</span>
             </div>
-            <h2 className="text-5xl md:text-7xl font-black text-primary uppercase leading-[0.9] tracking-tighter">
+            <h2 className="text-4xl md:text-7xl font-black text-primary uppercase leading-[0.9] tracking-tighter text-left">
               The Architecture <br />
-              <span className="text-secondary italic font-light">of Movement</span>
+              <span className="text-secondary italic font-light text-left">of Movement</span>
             </h2>
-            <p className="text-xl md:text-2xl text-gray-500 font-light leading-relaxed max-w-xl">
+            <p className="text-base md:text-2xl text-gray-500 font-light leading-relaxed max-w-xl text-left">
               From high-stakes industrial logistics to the meticulous assembly of mobile infrastructure, we bridge the gap between heavy industry and environmental stewardship. 
             </p>
-            <div className="pt-6">
-              <Link to="/about" className="inline-block px-10 py-5 bg-primary text-white font-black uppercase text-xs tracking-widest hover:bg-secondary hover:text-primary transition-all shadow-xl">
+            <div className="pt-4 md:pt-6 text-left">
+              <Link to="/about" className="inline-block px-8 py-4 md:px-10 md:py-5 bg-primary text-white font-black uppercase text-[10px] md:text-xs tracking-widest hover:bg-secondary hover:text-primary transition-all shadow-xl text-left">
                 Our Heritage
               </Link>
             </div>
           </motion.div>
 
-          <div className="relative">
+          <div className="relative pt-12 md:pt-0">
             <motion.div style={{ y: y1 }} className="aspect-[4/5] bg-dark relative z-10 overflow-hidden shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200" 
@@ -48,9 +48,9 @@ const MissionSection = () => {
             </motion.div>
             <motion.div 
               style={{ y: y2 }}
-              className="absolute -bottom-20 -right-10 w-2/3 aspect-square bg-secondary z-20 shadow-2xl flex items-center justify-center p-12 border-l-[16px] border-primary"
+              className="absolute -bottom-10 -right-4 md:-bottom-20 md:-right-10 w-2/3 aspect-square bg-secondary z-20 shadow-2xl flex items-center justify-center p-8 md:p-12 border-l-[8px] md:border-l-[16px] border-primary"
             >
-               <span className="text-primary font-black text-4xl md:text-6xl uppercase leading-none tracking-tighter italic">12+ <br /><span className="text-xl md:text-2xl not-italic tracking-widest">Years</span></span>
+               <span className="text-primary font-black text-3xl md:text-6xl uppercase leading-none tracking-tighter italic text-center">12+ <br /><span className="text-base md:text-2xl not-italic tracking-widest">Years</span></span>
             </motion.div>
           </div>
         </div>
