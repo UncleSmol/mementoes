@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, MotionValue, AnimatePresence } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Word = ({ word, range, progress }: { word: string, range: [number, number], progress: MotionValue<number> }) => {
@@ -30,6 +30,33 @@ const RevealText = ({ text, className }: { text: string, className?: string }) =
 
 const ValidatedExcellence = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  
+  const catalysts = [
+    {
+      id: "01",
+      name: "Exxaro Resources",
+      role: "Industrial Partner",
+      image: "https://www.moneyweb.co.za/wp-content/uploads/2014/10/Exxaro-Growthpoint-22-1024x768.jpg",
+      logo: "https://th.bing.com/th/id/OIP.MIBoL61C8rkZW5IkOCYpIAHaD3?w=345&h=180&c=7&r=0&o=7&pid=1.7&rm=3",
+      desc: "In strategic partnership with SAICA, we ensure rigorous operational success for large-scale industrial landscapes.",
+      stat: "Host Built",
+      label: "Impact Node",
+      color: "secondary"
+    },
+    {
+      id: "02",
+      name: "SAB / ABInBev",
+      role: "Supply Chain Finalist",
+      image: "https://mg.co.za/wp-content/uploads/2020/02/bbabb99e-sab-johannesburg-.jpeg",
+      logo: "https://www.sab.co.za/sites/g/files/seuoyk2041/files/brand_0.png",
+      desc: "Accelerating supply-chain readiness through elite business mentoring to catalyze sustainable jobs and market access.",
+      stat: "Finalist 8",
+      label: "Global Status",
+      color: "primary"
+    }
+  ];
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -37,112 +64,111 @@ const ValidatedExcellence = () => {
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
-  // Chapter 1 (Exxaro) Range: 0 -> 0.5
-  const opacity1 = useTransform(smoothProgress, [0, 0.35, 0.45, 0.55], [0, 1, 1, 0]);
-  const y1 = useTransform(smoothProgress, [0, 0.35, 0.55], [100, 0, -100]);
-  
-  // Chapter 2 (SAB) Range: 0.5 -> 1
-  const opacity2 = useTransform(smoothProgress, [0.45, 0.55, 0.85, 1], [0, 1, 1, 0]);
-  const y2 = useTransform(smoothProgress, [0.45, 0.55, 1], [100, 0, -100]);
-
-  // Background Morphing
-  const bgOpacity1 = useTransform(smoothProgress, [0, 0.4, 0.6], [0.25, 0.25, 0]);
-  const bgOpacity2 = useTransform(smoothProgress, [0.4, 0.6, 1], [0, 0.25, 0.25]);
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      const idx = Math.min(Math.floor(latest * catalysts.length), catalysts.length - 1);
+      setActiveIndex(idx);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress, catalysts.length]);
 
   const xTitle = useTransform(smoothProgress, [0, 1], ["-10%", "10%"]);
 
   return (
     <section ref={containerRef} className="relative h-[300vh] bg-dark text-left">
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
+      <div className="sticky top-0 h-screen w-full overflow-hidden grid grid-rows-[auto_1fr_auto] py-12 md:py-16">
         
-        {/* Continuous BG Morph */}
-        <div className="absolute inset-0 z-0">
-          <motion.img 
-            style={{ opacity: bgOpacity1 }}
-            src="https://www.moneyweb.co.za/wp-content/uploads/2014/10/Exxaro-Growthpoint-22-1024x768.jpg" 
-            className="absolute inset-0 w-full h-full object-cover grayscale contrast-125" 
-          />
-          <motion.img 
-            style={{ opacity: bgOpacity2 }}
-            src="https://mg.co.za/wp-content/uploads/2020/02/bbabb99e-sab-johannesburg-.jpeg" 
-            className="absolute inset-0 w-full h-full object-cover grayscale contrast-125" 
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-transparent to-dark opacity-90" />
-        </div>
+        {/* BG Layer */}
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-0"
+          >
+            <img 
+              src={catalysts[activeIndex].image} 
+              className="w-full h-full object-cover brightness-[0.15] contrast-125 grayscale-[40%]" 
+              alt="" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-dark via-transparent to-dark opacity-90" />
+          </motion.div>
+        </AnimatePresence>
 
-        {/* Dynamic Title */}
-        <motion.div style={{ x: xTitle }} className="absolute top-1/4 left-0 whitespace-nowrap pointer-events-none opacity-[0.03] z-10 text-left">
-          <span className="text-[25vw] font-black text-white uppercase leading-none">VALIDATED EXCELLENCE</span>
-        </motion.div>
-
-        <div className="container mx-auto px-6 lg:px-16 relative z-40 w-full">
-          <div className="relative h-[70vh] flex items-center justify-center">
-            
-            {/* Chapter 01: Exxaro */}
-            <motion.div style={{ opacity: opacity1, y: y1 }} className="absolute inset-0 w-full flex items-center pointer-events-none">
-              <div className="w-full grid lg:grid-cols-12 gap-12 lg:gap-24 items-center pointer-events-auto">
-                <div className="lg:col-span-5 text-left">
-                  <div className="flex items-center gap-4 mb-6 md:mb-12 text-left">
-                    <div className="w-12 md:w-20 h-[2px] bg-secondary text-left"></div>
-                    <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] md:tracking-[0.8em] uppercase">Strategic Catalyst 01</span>
-                  </div>
-                  <h2 className="text-3xl md:text-5xl lg:text-[6vw] font-black text-white uppercase leading-[0.85] tracking-tighter mb-6 lg:mb-0 text-left flex flex-col items-start gap-4 md:gap-8">
-                    <div className="bg-white p-3 md:p-4 shadow-2xl border-l-[8px] border-secondary">
-                      <img src="https://th.bing.com/th/id/OIP.MIBoL61C8rkZW5IkOCYpIAHaD3?w=345&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Exxaro" className="h-6 md:h-12 w-auto object-contain" />
-                    </div>
-                    <span className="text-secondary italic font-light text-left text-xl md:text-4xl">Industrial Partner</span>
-                  </h2>
-                </div>
-                <div className="lg:col-span-7 flex justify-end">
-                  <div className="bg-dark/50 backdrop-blur-2xl p-6 md:p-10 text-white relative shadow-2xl border-l-[8px] md:border-l-[12px] border-secondary w-full max-w-2xl lg:ml-auto">
-                    <p className="text-base md:text-xl font-light italic leading-relaxed mb-6 md:mb-10 opacity-80">
-                      "In strategic partnership with SAICA, we ensure rigorous operational success for large-scale industrial landscapes."
-                    </p>
-                    <div className="flex flex-wrap gap-6 md:gap-10 items-end">
-                       <div className="flex flex-col"><span className="text-secondary font-black text-[9px] md:text-[10px] uppercase mb-1 md:mb-2 tracking-[0.4em]">Impact Node</span><span className="text-xl md:text-3xl font-black uppercase tracking-tighter">Host Built</span></div>
-                       <Link to="/portfolio" className="px-6 py-3 md:px-8 md:py-4 border border-white/20 text-white font-black uppercase text-[8px] md:text-[9px] tracking-[0.4em] hover:bg-white hover:text-primary transition-all ml-auto">Details</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Chapter 02: SAB */}
-            <motion.div style={{ opacity: opacity2, y: y2 }} className="absolute inset-0 w-full flex items-center pointer-events-none">
-              <div className="w-full grid lg:grid-cols-12 gap-12 lg:gap-24 items-center pointer-events-auto">
-                <div className="lg:col-span-5 text-left">
-                  <div className="flex items-center gap-4 mb-6 md:mb-12 text-left">
-                    <div className="w-12 md:w-20 h-[2px] bg-secondary text-left"></div>
-                    <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] md:tracking-[0.8em] uppercase">Strategic Catalyst 02</span>
-                  </div>
-                  <h2 className="text-3xl md:text-5xl lg:text-[6vw] font-black text-white uppercase leading-[0.85] tracking-tighter mb-6 lg:mb-0 text-left flex flex-col items-start gap-4 md:gap-8">
-                    <div className="bg-white p-3 md:p-4 shadow-2xl border-l-[8px] md:border-l-[16px] border-primary">
-                      <img src="https://www.sab.co.za/sites/g/files/seuoyk2041/files/brand_0.png" alt="SAB" className="h-6 md:h-12 w-auto object-contain" />
-                    </div>
-                    <span className="text-secondary italic font-light text-left text-xl md:text-4xl">Supply Chain Finalist</span>
-                  </h2>
-                </div>
-                <div className="lg:col-span-7 flex justify-end">
-                  <div className="bg-dark/50 backdrop-blur-2xl p-6 md:p-10 text-white relative shadow-2xl border-l-[8px] md:border-l-[12px] border-primary w-full max-w-2xl lg:ml-auto">
-                    <p className="text-base md:text-xl font-light italic leading-relaxed mb-6 md:mb-10 opacity-80">
-                      "Accelerating supply-chain readiness through elite business mentoring to catalyze sustainable jobs and market access."
-                    </p>
-                    <div className="flex flex-wrap gap-6 md:gap-10 items-end">
-                       <div className="flex flex-col"><span className="text-primary font-black text-[9px] md:text-[10px] uppercase mb-1 md:mb-2 tracking-[0.4em]">Global Status</span><span className="text-xl md:text-3xl font-black uppercase tracking-tighter">Finalist 8</span></div>
-                       <Link to="/portfolio" className="px-6 py-3 md:px-8 md:py-4 border border-white/20 text-white font-black uppercase text-[8px] md:text-[9px] tracking-[0.4em] hover:bg-white hover:text-primary transition-all ml-auto">Impact</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
+        {/* TOP ZONE */}
+        <div className="container mx-auto px-6 lg:px-16 z-50 pointer-events-none relative">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-[1px] bg-secondary"></div>
+            <div className="flex flex-col">
+              <span className="text-secondary font-black text-[9px] tracking-[0.5em] uppercase text-left">Validated Excellence</span>
+              <span className="text-white/30 text-[8px] font-light uppercase tracking-widest mt-1">Strategic Catalyst</span>
+            </div>
           </div>
         </div>
 
-        {/* Global Progress */}
-        <div className="absolute bottom-12 left-16 right-16 flex items-center gap-8 z-50">
-           <div className="flex-grow h-px bg-white/5 relative overflow-hidden">
-              <motion.div style={{ scaleX: smoothProgress }} className="absolute inset-0 bg-secondary origin-left shadow-[0_0_15px_#fcb040]" />
+        {/* Dynamic Title Watermark */}
+        <motion.div style={{ x: xTitle }} className="absolute top-1/2 left-0 -translate-y-1/2 whitespace-nowrap pointer-events-none opacity-[0.03] z-10 text-left">
+          <span className="text-[25vw] font-black text-white uppercase leading-none">STRATEGIC</span>
+        </motion.div>
+
+        {/* MIDDLE ZONE */}
+        <div className="relative z-40 flex items-center overflow-hidden pointer-events-none">
+          <div className="container mx-auto px-6 lg:px-16 w-full">
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={activeIndex}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -40, opacity: 0 }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="max-w-6xl w-full pointer-events-auto"
+              >
+                <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+                  <div className="lg:col-span-5 text-left">
+                    <div className="flex items-center gap-4 mb-6 md:mb-12 text-left">
+                      <div className="w-12 md:w-20 h-[2px] bg-secondary text-left"></div>
+                      <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] md:tracking-[0.8em] uppercase">Catalyst {catalysts[activeIndex].id}</span>
+                    </div>
+                    <h2 className="text-3xl md:text-5xl lg:text-[6vw] font-black text-white uppercase leading-[0.85] tracking-tighter mb-6 lg:mb-0 text-left flex flex-col items-start gap-4 md:gap-8">
+                      <div className="bg-white p-3 md:p-4 shadow-2xl border-l-[8px] border-secondary">
+                        <img src={catalysts[activeIndex].logo} alt="" className="h-6 md:h-12 w-auto object-contain" />
+                      </div>
+                      <span className="text-secondary italic font-light text-left text-xl md:text-4xl">{catalysts[activeIndex].role}</span>
+                    </h2>
+                  </div>
+                  <div className="lg:col-span-7 flex justify-end">
+                    <div className="bg-dark/50 backdrop-blur-2xl p-6 md:p-10 text-white relative shadow-2xl border-l-[8px] md:border-l-[12px] border-secondary w-full max-w-2xl lg:ml-auto">
+                      <p className="text-base md:text-xl font-light italic leading-relaxed mb-6 md:mb-10 opacity-80">
+                        "{catalysts[activeIndex].desc}"
+                      </p>
+                      <div className="flex flex-wrap gap-6 md:gap-10 items-end">
+                         <div className="flex flex-col"><span className="text-secondary font-black text-[9px] md:text-[10px] uppercase mb-1 md:mb-2 tracking-[0.4em]">{catalysts[activeIndex].label}</span><span className="text-xl md:text-3xl font-black uppercase tracking-tighter">{catalysts[activeIndex].stat}</span></div>
+                         <Link to="/portfolio" className="px-6 py-3 md:px-8 md:py-4 border border-white/20 text-white font-black uppercase text-[8px] md:text-[9px] tracking-[0.4em] hover:bg-white hover:text-primary transition-all ml-auto">Details</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* BOTTOM ZONE */}
+        <div className="container mx-auto px-6 lg:px-16 z-50 flex items-end justify-between pointer-events-none relative">
+           <div className="flex flex-col gap-4 text-left">
+              <div className="flex items-center gap-2">
+                {catalysts.map((_, i) => (
+                  <div key={i} className={`h-[2px] transition-all duration-500 ${activeIndex === i ? 'w-8 bg-secondary' : 'w-2 bg-white/10'}`} />
+                ))}
+              </div>
+              <div className="flex items-center gap-6">
+                <span className="text-secondary font-black text-[10px] tracking-widest uppercase italic text-left">0{activeIndex + 1} / 02</span>
+                <div className="w-32 md:w-48 h-[1px] bg-white/10 relative overflow-hidden">
+                   <motion.div style={{ scaleX: scrollYProgress }} className="absolute inset-0 bg-secondary origin-left" />
+                </div>
+              </div>
            </div>
            <span className="text-primary font-black text-[10px] tracking-widest uppercase">Chapter Progression</span>
         </div>

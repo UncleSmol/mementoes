@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Service {
@@ -45,63 +45,6 @@ const services: Service[] = [
     image: "https://www.kwikspace.co.za/wp-content/uploads/2025/02/Prefab-buildings-for-Sale.jpg"
   }
 ];
-
-const ServiceBackground = ({ s, i, progress }: { s: Service, i: number, progress: MotionValue<number> }) => {
-  const start = i / services.length;
-  const end = (i + 1) / services.length;
-  const opacity = useTransform(progress, [start - 0.1, start, end, end + 0.1], [0, 1, 1, 0]);
-  
-  return (
-    <motion.div style={{ opacity }} className="absolute inset-0 will-change-transform">
-      <img src={s.image} className="w-full h-full object-cover brightness-[0.2] contrast-125 grayscale-[30%]" alt="" />
-      <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-transparent to-dark" />
-    </motion.div>
-  );
-};
-
-const ServiceContent = ({ s, i, progress }: { s: Service, i: number, progress: MotionValue<number> }) => {
-  const start = i / services.length;
-  const end = (i + 1) / services.length;
-  const opacity = useTransform(progress, [start - 0.1, start, end, end + 0.1], [0, 1, 1, 0]);
-  const y = useTransform(progress, [start - 0.1, start, end, end + 0.1], [60, 0, 0, -60]);
-  const scale = useTransform(progress, [start - 0.1, start, end, end + 0.1], [0.9, 1, 1, 0.9]);
-
-  return (
-    <motion.div style={{ opacity, y, scale }} className="absolute inset-0 flex flex-col justify-center translate-y-[-5%] md:translate-y-0 will-change-transform pointer-events-none pb-12 md:pb-32 lg:pb-40 px-4 md:px-0">
-      <div className="max-w-6xl w-full pointer-events-auto overflow-hidden">
-        <div className="flex items-center gap-3 mb-3 md:mb-6 text-left">
-          <span className="text-secondary font-black text-lg md:text-xl italic text-left">0{i+1}</span>
-          <div className="w-8 md:w-12 h-[1px] bg-white/20" />
-          <span className="text-white/40 font-black text-[8px] md:text-[9px] uppercase tracking-[0.4em] text-left">Service Pillar</span>
-        </div>
-        <h2 className="text-2xl md:text-5xl lg:text-[5.5vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-4 md:mb-8 text-left">{s.title}<br /><span className="text-secondary italic font-light text-left">{s.subtitle}</span></h2>
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6 lg:gap-16 items-start text-left">
-          <div className="space-y-4 md:space-y-6 text-left">
-            <p className="text-sm md:text-lg lg:text-xl text-white/70 font-light italic leading-relaxed max-w-lg text-left">"{s.desc}"</p>
-            <Link to="/contact" className="inline-block px-6 py-2.5 md:px-10 md:py-4 bg-secondary text-primary font-black uppercase text-[9px] md:text-[10px] tracking-widest hover:bg-white transition-all">Request Solution</Link>
-          </div>
-          <div className="flex flex-col gap-1.5 md:gap-3 border-l border-white/10 pl-4 md:pl-12 text-left">
-            {s.details.map((d, di) => (
-              <div key={di} className="flex items-center gap-3 group text-left">
-                <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-secondary opacity-40 group-hover:opacity-100 transition-opacity" />
-                <span className="text-white font-light text-[11px] md:text-base tracking-wide uppercase text-left">{d}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-const ChapterBar = ({ i, progress }: { i: number, progress: MotionValue<number> }) => {
-  const scaleX = useTransform(progress, [i/4, (i+1)/4], [0, 1]);
-  return (
-    <motion.div className="h-[2px] bg-white/10 relative overflow-hidden w-8 md:w-16">
-      <motion.div style={{ scaleX }} className="absolute inset-0 bg-secondary origin-left" />
-    </motion.div>
-  );
-};
 
 const ServicesCTA = () => {
   const ctaRef = useRef(null);
@@ -149,8 +92,19 @@ const ServicesCTA = () => {
 
 const Services = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      const idx = Math.min(Math.floor(latest * services.length), services.length - 1);
+      setActiveIndex(idx);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
   const xTitle = useTransform(smoothProgress, [0, 1], ["-10%", "10%"]);
   const yTextHero = useTransform(smoothProgress, [0, 0.2], ["0%", "120%"]);
   const yBgHero = useTransform(smoothProgress, [0, 0.2], ["0%", "40%"]);
@@ -184,54 +138,98 @@ const Services = () => {
       </section>
 
       <div className="relative h-[500vh] bg-dark text-left">
-        <div className="sticky top-0 h-screen w-full overflow-hidden grid grid-rows-[auto_1fr_auto] pt-24 pb-4 md:pt-20 md:pb-8 lg:pt-24 lg:pb-12">
+        <div className="sticky top-0 h-screen w-full overflow-hidden grid grid-rows-[auto_1fr_auto] py-12 md:py-16">
           
-          {/* BG Layer - Interpolated for smooth cross-fade */}
-          <div className="absolute inset-0 z-0 pointer-events-none">
-            {services.map((s, i) => (
-              <ServiceBackground key={s.id} s={s} i={i} progress={smoothProgress} />
-            ))}
-          </div>
+          {/* BG Layer */}
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="absolute inset-0"
+            >
+              <img 
+                src={services[activeIndex].image} 
+                className="w-full h-full object-cover brightness-[0.15] contrast-125 grayscale-[40%]" 
+                alt="" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-dark via-transparent to-dark opacity-90" />
+            </motion.div>
+          </AnimatePresence>
 
           {/* TOP ZONE */}
-          <div className="container mx-auto px-6 lg:px-16 z-50 relative">
+          <div className="container mx-auto px-6 lg:px-16 z-50 pointer-events-none relative">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-[1px] bg-secondary" />
+              <div className="w-10 h-[1px] bg-secondary"></div>
               <div className="flex flex-col">
-                <span className="text-secondary font-black text-[9px] tracking-[0.5em] uppercase">Core Offerings</span>
+                <span className="text-secondary font-black text-[9px] tracking-[0.5em] uppercase text-left">Core Offerings</span>
                 <span className="text-white/30 text-[8px] font-light uppercase tracking-widest mt-1">Integrated Network</span>
               </div>
             </div>
           </div>
 
           {/* MIDDLE ZONE */}
-          <div className="relative z-40 flex items-center overflow-hidden h-full">
+          <div className="relative z-40 flex items-center overflow-hidden pointer-events-none">
             <motion.div style={{ x: xTitle }} className="absolute top-1/2 left-0 -translate-y-1/2 whitespace-nowrap opacity-[0.03] z-0 pointer-events-none">
               <span className="text-[25vw] font-black text-white uppercase leading-none">CAPABILITIES</span>
             </motion.div>
 
             <div className="container mx-auto px-6 lg:px-16 w-full h-full relative z-10 flex flex-col justify-center">
-              {services.map((s, i) => (
-                <ServiceContent key={s.id} s={s} i={i} progress={smoothProgress} />
-              ))}
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={activeIndex}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -40, opacity: 0 }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  className="max-w-6xl w-full pointer-events-auto"
+                >
+                  <div className="flex items-center gap-3 mb-3 md:mb-6 text-left">
+                    <span className="text-secondary font-black text-lg md:text-xl italic text-left">0{activeIndex+1}</span>
+                    <div className="w-8 md:w-12 h-[1px] bg-white/20" />
+                    <span className="text-white/40 font-black text-[8px] md:text-[9px] uppercase tracking-[0.4em] text-left">Service Pillar</span>
+                  </div>
+                  <h2 className="text-3xl md:text-5xl lg:text-[6vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-4 md:mb-8 text-left">
+                    {services[activeIndex].title}<br />
+                    <span className="text-secondary italic font-light text-left">{services[activeIndex].subtitle}</span>
+                  </h2>
+                  <div className="grid md:grid-cols-2 gap-4 md:gap-6 lg:gap-16 items-start text-left">
+                    <div className="space-y-4 md:space-y-6 text-left">
+                      <p className="text-sm md:text-lg lg:text-xl text-white/70 font-light italic leading-relaxed max-w-lg text-left">"{services[activeIndex].desc}"</p>
+                      <Link to="/contact" className="inline-block px-6 py-2.5 md:px-10 md:py-4 bg-secondary text-primary font-black uppercase text-[9px] md:text-[10px] tracking-widest hover:bg-white transition-all">Request Solution</Link>
+                    </div>
+                    <div className="flex flex-col gap-1.5 md:gap-3 border-l border-white/10 pl-4 md:pl-12 text-left">
+                      {services[activeIndex].details.map((d, di) => (
+                        <div key={di} className="flex items-center gap-3 group text-left">
+                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-secondary opacity-40 group-hover:opacity-100 transition-opacity" />
+                          <span className="text-white font-light text-[11px] md:text-base tracking-wide uppercase text-left">{d}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
+
           {/* BOTTOM ZONE */}
-          <div className="container mx-auto px-6 lg:px-16 z-50 flex items-end justify-between relative py-4 md:py-2">
-             <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-3">
+          <div className="container mx-auto px-6 lg:px-16 z-50 flex items-end justify-between pointer-events-none relative py-4 md:py-2">
+             <div className="flex flex-col gap-4 text-left">
+                <div className="flex items-center gap-2">
                   {services.map((_, i) => (
-                    <ChapterBar key={i} i={i} progress={smoothProgress} />
+                    <div key={i} className={`h-[2px] transition-all duration-500 ${activeIndex === i ? 'w-8 bg-secondary' : 'w-2 bg-white/10'}`} />
                   ))}
                 </div>
                 <div className="flex items-center gap-6">
-                  <span className="text-secondary font-black text-[10px] tracking-widest uppercase italic">Chapter Navigation</span>
+                  <span className="text-secondary font-black text-[10px] tracking-widest uppercase italic text-left">0{activeIndex + 1} / 04</span>
                   <div className="w-32 md:w-64 h-[1px] bg-white/5 relative overflow-hidden">
-                     <motion.div style={{ scaleX: smoothProgress }} className="absolute inset-0 bg-secondary origin-left" />
+                     <motion.div style={{ scaleX: scrollYProgress }} className="absolute inset-0 bg-secondary origin-left" />
                   </div>
                 </div>
              </div>
-             <Link to="/about" className="px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-black uppercase text-[9px] tracking-widest hover:bg-white hover:text-primary transition-all">Our Story</Link>
+             <Link to="/about" className="pointer-events-auto px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-black uppercase text-[9px] tracking-widest hover:bg-white hover:text-primary transition-all">Our Story</Link>
           </div>
 
         </div>
