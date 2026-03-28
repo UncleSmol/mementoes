@@ -1,7 +1,12 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
+import imgContactHero from '../assets/external/contact-hero.jpg';
 
 const Contact = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
+  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error' | 'rate-limited'>('idle');
   const [formData, setFormData] = useState({
     user_name: '',
@@ -45,26 +50,56 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-[#05070a] min-h-screen selection:bg-secondary selection:text-white pt-24 pb-20 lg:pt-60 lg:pb-40 px-6 lg:px-16 overflow-hidden relative scrollbar-hide">
-      <div className="container mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="flex items-center gap-4 mb-6 md:mb-8">
-            <div className="w-12 h-[1px] bg-secondary"></div>
-            <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Connect With Us</span>
-          </div>
-          <h1 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-12 md:mb-24">
-            Let's Start a <br />
-            <span className="text-secondary italic font-light">Conversation</span>
-          </h1>
-        </motion.div>
+    <div ref={containerRef} className="bg-[#05070a] selection:bg-secondary selection:text-white overflow-x-clip scrollbar-hide relative">
+      {/* Hero Section */}
+      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
+        <div className="absolute inset-0 z-0">
+          <img src={imgContactHero} alt="Contact Us" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>
+        </div>
+        <div className="container mx-auto px-6 lg:px-16 relative z-10">
+          <motion.div style={{ opacity: textOpacity }} className="max-w-5xl">
+            <motion.div 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex items-center gap-4 mb-6 md:mb-8"
+            >
+              <div className="w-12 md:w-16 h-[2px] bg-secondary"></div>
+              <span className="text-secondary font-black text-[10px] md:text-xs uppercase tracking-[0.5em]">Connect With Us</span>
+            </motion.div>
+            <h1 className="text-5xl md:text-7xl lg:text-[10vw] font-black text-white leading-[0.9] md:leading-[0.85] uppercase tracking-tighter mb-8 md:mb-10">
+              <span className="block overflow-hidden">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="block">Let's Start a</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} className="block text-secondary">Conversation</motion.span>
+              </span>
+            </h1>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
+            >
+              <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
+                Ready to transform your next project? Reach out to our team and discover what precision logistics and construction excellence can do for you.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+        <div className="absolute right-12 bottom-24 hidden lg:block z-10 pointer-events-none">
+          <span className="text-white/10 text-9xl font-black uppercase select-none" style={{ writingMode: 'vertical-rl' }}>MEMENTOES</span>
+        </div>
+        <motion.div style={{ scaleX: scrollYProgress }} className="absolute bottom-0 left-0 right-0 h-1 bg-secondary origin-left z-20" />
+      </section>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
-          {/* Contact Details */}
-          <motion.div 
+      {/* Contact Content */}
+      <section className="relative py-20 lg:py-40 px-6 lg:px-16">
+        <div className="container mx-auto relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+            {/* Contact Details */}
+            <motion.div 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -73,7 +108,7 @@ const Contact = () => {
             <div>
               <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8 text-left">Operational Hub</h3>
               <div className="flex items-start gap-4 md:gap-6 group text-left">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-secondary transition-colors duration-500 shrink-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-secondary transition-colors duration-500 shrink-0 rounded-xl">
                   <i className="bi bi-geo-alt text-secondary text-lg md:text-xl"></i>
                 </div>
                 <div className="space-y-2">
@@ -87,13 +122,13 @@ const Contact = () => {
               <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8 text-left">Direct Lines</h3>
               <div className="space-y-6 md:space-y-8 text-left">
                 <div className="flex items-center gap-4 md:gap-6 group">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-secondary transition-colors duration-500 shrink-0">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-secondary transition-colors duration-500 shrink-0 rounded-xl">
                     <i className="bi bi-telephone text-secondary text-lg md:text-xl"></i>
                   </div>
                   <a href="tel:+27824161012" className="text-white font-black uppercase text-xl md:text-3xl tracking-tighter hover:text-secondary transition-colors">+27 (0) 82 416 1012</a>
                 </div>
                 <div className="flex items-center gap-4 md:gap-6 group">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-secondary transition-colors duration-500 shrink-0">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-secondary transition-colors duration-500 shrink-0 rounded-xl">
                     <i className="bi bi-envelope text-secondary text-lg md:text-xl"></i>
                   </div>
                   <a href="mailto:info@mementoes.co.za" className="text-white font-black uppercase text-lg md:text-3xl tracking-tighter hover:text-secondary transition-colors break-all">info@mementoes.co.za</a>
@@ -104,10 +139,10 @@ const Contact = () => {
             <div>
               <h3 className="text-white/20 font-black text-[9px] md:text-[10px] uppercase tracking-[0.5em] mb-6 md:mb-8 text-left">Social Ecosystem</h3>
               <div className="flex gap-4">
-                <a href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
+                <a href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group rounded-xl">
                   <i className="bi bi-facebook text-white text-lg md:text-xl group-hover:text-primary"></i>
                 </a>
-                <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group">
+                <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-12 h-12 md:w-14 md:h-14 bg-white/5 border border-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all duration-500 group rounded-xl">
                   <i className="bi bi-lightning-charge text-white text-lg md:text-xl group-hover:text-primary"></i>
                 </a>
               </div>
@@ -119,7 +154,7 @@ const Contact = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-white p-6 md:p-12 shadow-2xl relative"
+            className="bg-white p-6 md:p-12 shadow-2xl relative rounded-2xl"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 -z-10 blur-3xl"></div>
             
@@ -211,7 +246,7 @@ const Contact = () => {
                   
                   <button 
                     disabled={status === 'sending'}
-                    className="w-full py-4 md:py-6 bg-primary text-white font-black uppercase text-xs md:text-sm tracking-[0.4em] hover:bg-secondary hover:text-primary transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-4 md:py-6 bg-primary text-white font-black uppercase text-xs md:text-sm tracking-[0.4em] hover:bg-secondary hover:text-primary transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl"
                   >
                     {status === 'sending' ? 'Sending...' : 'Send Message'}
                   </button>
@@ -262,7 +297,7 @@ const Contact = () => {
               </a>
             </div>
             
-            <div className="lg:col-span-8 relative aspect-video lg:aspect-[21/9] bg-white/5 overflow-hidden shadow-2xl border border-white/10 group">
+            <div className="lg:col-span-8 relative aspect-video lg:aspect-[21/9] bg-white/5 overflow-hidden shadow-2xl border border-white/10 group rounded-2xl">
               <iframe 
                 src="https://maps.google.com/maps?q=4353%20Nkomo%20Ave%2C%20KwaThomas%20Mahlanguville%2C%20eMalahleni%2C%201039&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                 className="absolute inset-0 w-full h-full grayscale invert opacity-60 contrast-125 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000"
@@ -273,7 +308,8 @@ const Contact = () => {
             </div>
           </div>
         </motion.div>
-      </div>
+        </div>
+      </section>
 
       {/* Background Decorative Text */}
       <span className="absolute bottom-0 right-0 text-[25vw] font-black text-white/[0.02] leading-none select-none pointer-events-none uppercase">

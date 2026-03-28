@@ -13,14 +13,14 @@ import post5 from '../assets/bursaryassets/Mementoes(Facebook Post5).png';
 import post6 from '../assets/bursaryassets/Mementoes(Facebook Post6).png';
 import post7 from '../assets/bursaryassets/Mementoes(Facebook Post7).png';
 import newLogo from '../assets/Mementoes Logo.png';
+import imgOldLogo from '../assets/external/old-mementoes-logo.png';
 
 const Mementoes360 = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const springScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   
-  const yBg = useTransform(springScroll, [0, 1], ["0%", "40%"]);
-  const yText = useTransform(springScroll, [0, 1], ["0%", "120%"]);
+  const textOpacity = useTransform(springScroll, [0, 0.15], [1, 0]);
   const floatingY = useTransform(springScroll, [0, 1], [0, -400]);
 
   const bursaryPosts = [
@@ -35,27 +35,51 @@ const Mementoes360 = () => {
 
   return (
     <div ref={containerRef} className="bg-[#05070a] text-left relative overflow-x-clip scrollbar-hide">
-      {/* 1. HERO SECTION - Standardized */}
-      <section className="relative h-screen w-full flex items-center bg-dark overflow-hidden pt-24 md:pt-0">
-        <motion.div style={{ y: yBg, scale: 1.1 }} className="absolute inset-0 z-0">
-          <img src={post5} className="w-full h-full object-cover grayscale brightness-[0.2] contrast-125" alt="" />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-transparent to-dark" />
-        </motion.div>
-        <div className="container mx-auto px-6 lg:px-16 relative z-10 text-left">
-          <motion.div style={{ y: yText }}>
-            <div className="flex items-center gap-4 mb-6 md:mb-10 text-left">
-              <div className="w-12 md:w-16 h-[2px] bg-secondary text-left"></div>
-              <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Impact Ecosystem</span>
-            </div>
-            <h1 className="text-5xl md:text-8xl lg:text-[12vw] font-black text-white uppercase leading-[0.85] tracking-tighter text-left">
-              Mementoes <br />
-              <span className="text-secondary italic font-light text-left">360</span>
+      {/* 1. HERO SECTION */}
+      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
+        <div className="fixed inset-0 z-0">
+          <img src={post5} alt="Mementoes 360" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>
+        </div>
+        <div className="container mx-auto px-6 lg:px-16 relative z-10">
+          <motion.div style={{ opacity: textOpacity }} className="max-w-5xl">
+            <motion.div 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex items-center gap-4 mb-6 md:mb-8"
+            >
+              <div className="w-12 md:w-16 h-[2px] bg-secondary"></div>
+              <span className="text-secondary font-black text-[10px] md:text-xs uppercase tracking-[0.5em]">Impact Ecosystem</span>
+            </motion.div>
+            <h1 className="text-5xl md:text-7xl lg:text-[10vw] font-black text-white leading-[0.9] md:leading-[0.85] uppercase tracking-tighter mb-8 md:mb-10">
+              <span className="block overflow-hidden">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="block">Mementoes</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} className="block text-secondary">360</motion.span>
+              </span>
             </h1>
-            <p className="text-lg md:text-2xl text-white/40 font-light mt-8 max-w-2xl italic text-left leading-tight">
-              A holistic commitment to community elevation, skill-building, and the future of African industry.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
+            >
+              <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
+                A holistic commitment to community elevation, skill-building, and the future of African industry.
+              </p>
+              <Link to="/contact" className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base rounded-2xl">
+                <span className="relative z-10">Get Involved</span>
+                <motion.div className="absolute inset-0 bg-white" initial={{ x: "-100%" }} whileHover={{ x: 0 }} transition={{ duration: 0.4, ease: "easeInOut" }} />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
+        <div className="absolute right-12 bottom-24 hidden lg:block z-10 pointer-events-none">
+          <span className="text-white/10 text-9xl font-black uppercase select-none" style={{ writingMode: 'vertical-rl' }}>MEMENTOES</span>
+        </div>
+        <motion.div style={{ scaleX: scrollYProgress }} className="absolute bottom-0 left-0 right-0 h-1 bg-secondary origin-left z-20" />
       </section>
 
       {/* 2. BURSARY PROGRAM SECTION */}
@@ -74,7 +98,7 @@ const Mementoes360 = () => {
                 <span className="text-secondary italic font-light text-left">Trades 2026</span>
               </h2>
               <div className="space-y-8 text-left">
-                <div className="bg-white p-8 md:p-10 shadow-[0_30px_60px_rgba(0,0,0,0.05)] border-l-[12px] border-primary relative overflow-hidden group">
+                <div className="bg-white p-8 md:p-10 shadow-[0_30px_60px_rgba(0,0,0,0.05)] border-l-[12px] border-primary relative overflow-hidden group rounded-2xl">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 -z-0 blur-3xl group-hover:bg-secondary/10 transition-colors" />
                   <span className="text-primary font-black text-[10px] uppercase tracking-widest block mb-6 opacity-40">Program Manifesto</span>
                   <p className="text-xl md:text-2xl text-primary font-bold uppercase tracking-tighter leading-tight mb-6 italic">
@@ -116,7 +140,7 @@ const Mementoes360 = () => {
             <div className="lg:col-span-7">
               <div className="flex flex-col gap-12">
                 {/* Main Video Ad - Fixed to Mobile Scale (Vertical) on all screens */}
-                <div className="relative aspect-[9/16] w-full max-w-sm bg-dark overflow-hidden shadow-2xl border-l-8 border-secondary group mx-auto">
+                <div className="relative aspect-[9/16] w-full max-w-sm bg-dark overflow-hidden shadow-2xl border-l-8 border-secondary group mx-auto rounded-2xl">
                   <video 
                     src={vid1} 
                     autoPlay 
@@ -125,7 +149,7 @@ const Mementoes360 = () => {
                     playsInline 
                     className="w-full h-full object-contain grayscale brightness-75 group-hover:grayscale-0 transition-all duration-700" 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent rounded-2xl" />
                   <div className="absolute bottom-6 left-6 text-left">
                     <span className="text-secondary font-black text-[10px] uppercase tracking-widest block mb-1 text-left">Official Video Ad</span>
                     <span className="text-white font-black uppercase text-xl tracking-tighter italic leading-none text-left">Bursary Call 2026</span>
@@ -136,13 +160,14 @@ const Mementoes360 = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {bursaryPosts.map((post, i) => (
                     <div key={i} className="flex flex-col gap-4 group">
-                      <div className="relative aspect-square bg-[#f8f8f8] overflow-hidden shadow-xl border border-gray-100">
+                      <div className="relative aspect-square bg-[#f8f8f8] overflow-hidden shadow-xl border border-gray-100 rounded-2xl">
                         <img 
                           src={post.img} 
+                          loading="lazy"
                           className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-700 hover:scale-105" 
                           alt="" 
                         />
-                        <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-all pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent group-hover:opacity-0 transition-all pointer-events-none rounded-2xl" />
                       </div>
                       <div className="px-2">
                         <span className="text-primary font-black text-[10px] uppercase tracking-widest block mb-1 opacity-40">Notice 0{i+1}</span>
@@ -174,7 +199,7 @@ const Mementoes360 = () => {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             {/* Identity Video - Fixed to Mobile Scale (Vertical) on all screens */}
             <div className="lg:col-span-7 flex justify-center">
-              <div className="relative aspect-[9/16] w-full max-w-sm bg-[#0a0c10] shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-l-[16px] border-primary group">
+              <div className="relative aspect-[9/16] w-full max-w-sm bg-[#0a0c10] shadow-[0_50px_100px_rgba(0,0,0,0.5)] border-l-[16px] border-primary group rounded-2xl">
                 <video 
                   src={vid2} 
                   autoPlay 
@@ -183,7 +208,7 @@ const Mementoes360 = () => {
                   playsInline 
                   className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
                 />
-                <div className="absolute inset-0 bg-primary/10 mix-blend-overlay pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent pointer-events-none rounded-2xl" />
                 <div className="absolute bottom-8 right-8 text-right">
                   <span className="text-secondary font-black text-xs uppercase tracking-[0.4em] block mb-2 italic text-right">New Identity Reveal</span>
                   <span className="text-white/20 font-mono text-[9px] uppercase tracking-widest leading-none text-right">© Mementoes Trading 2026</span>
@@ -195,9 +220,9 @@ const Mementoes360 = () => {
               <div className="space-y-8 text-left">
                 <div className="flex flex-col gap-4 text-left">
                   <span className="text-white/20 font-black text-[10px] uppercase tracking-[0.5em] text-left">The Origin</span>
-                  <div className="bg-white/5 p-8 border border-white/10 flex items-center justify-center grayscale opacity-40 hover:opacity-100 hover:grayscale-0 transition-all">
+                  <div className="bg-white/5 p-8 border border-white/10 flex items-center justify-center grayscale opacity-40 hover:opacity-100 hover:grayscale-0 transition-all rounded-2xl">
                     <img 
-                      src="https://mementoes.co.za/WP_mementoes/wp-content/uploads/2023/02/Mementoes-Logo-2020.png" 
+                      src={imgOldLogo} 
                       className="h-16 w-auto object-contain" 
                       alt="Old Logo" 
                     />
@@ -206,7 +231,7 @@ const Mementoes360 = () => {
 
                 <div className="flex flex-col gap-4 text-left">
                   <span className="text-secondary font-black text-[10px] uppercase tracking-[0.5em] text-left">The Legacy</span>
-                  <div className="bg-white p-8 shadow-2xl border-l-[12px] border-secondary flex items-center justify-center">
+                  <div className="bg-white p-8 shadow-2xl border-l-[12px] border-secondary flex items-center justify-center rounded-2xl">
                     <img 
                       src={newLogo} 
                       className="h-20 w-auto object-contain" 
@@ -238,7 +263,7 @@ const Mementoes360 = () => {
             <h2 className="text-5xl md:text-9xl font-black text-white uppercase leading-none mb-12 md:mb-16 tracking-tighter text-center">
               Join the <br /> <span className="text-secondary italic text-center">Movement</span>
             </h2>
-            <Link to="/contact" className="inline-block px-10 py-5 md:px-16 md:py-8 bg-secondary text-primary font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl active:scale-95 text-xl md:text-2xl">Partner With Us</Link>
+            <Link to="/contact" className="inline-block px-10 py-5 md:px-16 md:py-8 bg-secondary text-primary font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl active:scale-95 text-xl md:text-2xl rounded-2xl">Partner With Us</Link>
           </motion.div>
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-white/[0.03] uppercase pointer-events-none whitespace-nowrap">IMPACT</div>

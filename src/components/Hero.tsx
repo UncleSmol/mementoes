@@ -1,6 +1,7 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import heroBg from '../assets/external/hero-construction.jpg';
 
 const Hero = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -9,31 +10,23 @@ const Hero = () => {
     offset: ["start start", "end start"]
   });
 
-  const springScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-  
-  // Parallax transforms
-  const yBg = useTransform(springScroll, [0, 1], ["0%", "40%"]);
-  const yText = useTransform(springScroll, [0, 1], ["0%", "120%"]);
-  const opacity = useTransform(springScroll, [0, 0.7], [1, 0]);
-  const scale = useTransform(springScroll, [0, 1], [1, 1.1]);
+  // Text fades out as you scroll
+  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
     <section ref={containerRef} className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
-      {/* Background with heavy parallax */}
-      <motion.div 
-        style={{ y: yBg, scale }}
-        className="absolute inset-0 z-0"
-      >
+      {/* Fixed background image */}
+      <div className="fixed inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1761287347782-f3b433c0cee3?q=80&w=2000&auto=format&fit=crop" 
+          src={heroBg}
           alt="Immersive Construction" 
           className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>
-      </motion.div>
+      </div>
 
       <div className="container mx-auto px-6 lg:px-16 relative z-10">
-        <motion.div style={{ y: yText, opacity }} className="max-w-5xl">
+        <motion.div style={{ opacity: textOpacity }} className="max-w-5xl">
           {/* Tagline Reveal */}
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
@@ -83,7 +76,7 @@ const Hero = () => {
             
             <Link 
               to="/contact" 
-              className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base"
+              className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base rounded-2xl"
             >
               <span className="relative z-10">Start a Project</span>
               <motion.div 

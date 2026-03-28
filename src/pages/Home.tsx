@@ -3,6 +3,9 @@ import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'fra
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import { ExcellenceAfrica } from '../components/ExcellenceAfrica';
+import imgLogistics from '../assets/external/logistics.jpg';
+import imgWaste from '../assets/external/waste-management.jpg';
+import imgInfra from '../assets/external/infrastructure.jpg';
 
 const MissionSection = () => {
   const containerRef = useRef(null);
@@ -32,23 +35,24 @@ const MissionSection = () => {
               From high-stakes industrial logistics to the meticulous assembly of mobile infrastructure, we bridge the gap between heavy industry and environmental stewardship. 
             </p>
             <div className="pt-4 md:pt-6 text-left">
-              <Link to="/about" className="inline-block px-8 py-4 md:px-10 md:py-5 bg-primary text-white font-black uppercase text-[10px] md:text-xs tracking-widest hover:bg-secondary hover:text-primary transition-all shadow-xl text-left">
+              <Link to="/about" className="inline-block px-8 py-4 md:px-10 md:py-5 bg-primary text-white font-black uppercase text-[10px] md:text-xs tracking-widest hover:bg-secondary hover:text-primary transition-all shadow-xl text-left rounded-2xl">
                 Our Heritage
               </Link>
             </div>
           </motion.div>
 
           <div className="relative pt-12 md:pt-0">
-            <motion.div style={{ y: y1 }} className="aspect-[4/5] bg-dark relative z-10 overflow-hidden shadow-2xl">
+            <motion.div style={{ y: y1 }} className="aspect-[4/5] bg-dark relative z-10 overflow-hidden shadow-2xl rounded-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200" 
+                src={imgLogistics}
+                loading="lazy"
                 className="w-full h-full object-cover grayscale brightness-75 hover:scale-110 transition-transform duration-1000" 
                 alt="" 
               />
             </motion.div>
             <motion.div 
               style={{ y: y2 }}
-              className="absolute -bottom-10 -right-4 md:-bottom-20 md:-right-10 w-2/3 aspect-square bg-secondary z-20 shadow-2xl flex items-center justify-center p-8 md:p-12 border-l-[8px] md:border-l-[16px] border-primary"
+              className="absolute -bottom-10 -right-4 md:-bottom-20 md:-right-10 w-2/3 aspect-square bg-secondary z-20 shadow-2xl flex items-center justify-center p-8 md:p-12 border-l-[8px] md:border-l-[16px] border-primary rounded-2xl"
             >
                <span className="text-primary font-black text-3xl md:text-6xl uppercase leading-none tracking-tighter italic text-center">12+ <br /><span className="text-base md:text-2xl not-italic tracking-widest">Years</span></span>
             </motion.div>
@@ -81,8 +85,8 @@ const DepartmentPanel = ({ dept, activeIndex, index }: { dept: Department, activ
       transition={{ duration: 1 }} 
       className="absolute inset-0 will-change-transform"
     >
-      <img src={dept.image} alt="" className="w-full h-full object-cover grayscale brightness-50 contrast-125" />
-      <div className="absolute inset-0 bg-primary/30 mix-blend-multiply" />
+        <img src={dept.image} alt="" className="w-full h-full object-cover grayscale brightness-50 contrast-125 rounded-2xl" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent rounded-2xl" />
     </motion.div>
   );
 };
@@ -102,9 +106,9 @@ const DepartmentShowcase = () => {
   }, [springProgress, activeIndex]);
 
   const departments: Department[] = [
-    { title: "Logistics", tag: "Streamlined Flow", desc: "Architecting the movement of goods with surgical precision.", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200" },       
-    { title: "Waste", tag: "Ethical Disposal", desc: "Engineering the future of waste management responsibly.", image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1200" },
-    { title: "Building", tag: "Structural Form", desc: "Creating landmarks defined by meticulous attention to detail.", image: "https://images.unsplash.com/photo-1489515229412-1f3a8f08dc34?q=80&w=1200&auto=format&fit=crop" }
+    { title: "Logistics", tag: "Streamlined Flow", desc: "Architecting the movement of goods with surgical precision.", image: imgLogistics },       
+    { title: "Waste", tag: "Ethical Disposal", desc: "Engineering the future of waste management responsibly.", image: imgWaste },
+    { title: "Building", tag: "Structural Form", desc: "Creating landmarks defined by meticulous attention to detail.", image: imgInfra }
   ];
 
   return (
@@ -146,13 +150,13 @@ interface MobileDept {
 
 const MobileDeptCard = ({ dept, i }: { dept: MobileDept, i: number }) => {
   return (
-    <div key={i} className="min-w-[85vw] snap-center group">
-      <div className="relative h-[70vh] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.15)] bg-dark border border-gray-100">
-        <img src={dept.image} alt="" className="w-full h-full object-cover opacity-60 grayscale brightness-75 group-active:grayscale-0 transition-all duration-700" />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-transparent to-primary/90"></div>
+    <div key={i} className="w-full group">
+      <div className="relative h-[70vh] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.15)] bg-dark border border-gray-100 rounded-2xl">
+        <img src={dept.image} alt="" className="w-full h-full object-cover opacity-60 grayscale brightness-75 group-active:grayscale-0 transition-all duration-700 rounded-2xl" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-dark/10 rounded-2xl"></div>
 
         <div className="absolute top-8 left-8">
-          <div className="w-12 h-12 bg-secondary flex items-center justify-center text-primary text-2xl shadow-xl">
+          <div className="w-12 h-12 bg-secondary flex items-center justify-center text-primary text-2xl shadow-xl rounded-xl">
             <i className={`bi ${dept.icon}`}></i>
           </div>
         </div>
@@ -161,7 +165,7 @@ const MobileDeptCard = ({ dept, i }: { dept: MobileDept, i: number }) => {
           <span className="text-secondary font-black text-[10px] tracking-[0.4em] uppercase block mb-3 text-left">Department 0{i+1}</span>
           <h4 className="text-4xl font-black text-white uppercase tracking-tighter mb-4 leading-none text-left">{dept.title}</h4>
           <p className="text-gray-300 text-sm font-light leading-relaxed mb-8 opacity-90 text-left">{dept.desc}</p>
-          <Link to="/services" className="inline-flex items-center gap-3 px-6 py-3 bg-white text-primary font-black text-[10px] uppercase tracking-widest shadow-lg active:scale-95 transition-transform">   
+          <Link to="/services" className="inline-flex items-center gap-3 px-6 py-3 bg-white text-primary font-black text-[10px] uppercase tracking-widest shadow-lg active:scale-95 transition-transform rounded-xl">   
             Explore <i className="bi bi-arrow-right text-secondary"></i>
           </Link>
         </div>
@@ -170,24 +174,11 @@ const MobileDeptCard = ({ dept, i }: { dept: MobileDept, i: number }) => {
   );
 };
 
-const MobileProgressBar = ({ i }: { i: number }) => {
-  return (
-    <div key={i} className="h-1 w-8 bg-gray-100 overflow-hidden">
-       <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: "100%" }}
-          transition={{ duration: 0.8, delay: i * 0.2 }}
-          className="h-full bg-secondary"
-       />
-    </div>
-  );
-};
-
 const MobileDepartmentSlider = () => {
   const departments: MobileDept[] = [
-    { title: "Logistics", tag: "Flow", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800", icon: "bi-truck", desc: "Surgical precision in goods movement and supply chain architecture." },
-    { title: "Waste", tag: "Ethics", image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800", icon: "bi-recycle", desc: "Engineering eco-conscious methodologies for modern waste management." },
-    { title: "Building", tag: "Form", image: "https://images.unsplash.com/photo-1489515229412-1f3a8f08dc34?q=80&w=800&auto=format&fit=crop", icon: "bi-building", desc: "Creating landmarks of quality with meticulous structural durability." }
+    { title: "Logistics", tag: "Flow", image: imgLogistics, icon: "bi-truck", desc: "Surgical precision in goods movement and supply chain architecture." },
+    { title: "Waste", tag: "Ethics", image: imgWaste, icon: "bi-recycle", desc: "Engineering eco-conscious methodologies for modern waste management." },
+    { title: "Building", tag: "Form", image: imgInfra, icon: "bi-building", desc: "Creating landmarks of quality with meticulous structural durability." }
   ];
 
   return (
@@ -205,19 +196,10 @@ const MobileDepartmentSlider = () => {
         </motion.div>
       </div>
       
-      <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar px-8 gap-8 pb-12">       
+      <div className="flex flex-col px-8 gap-8 pb-12">
         {departments.map((dept, i) => (
           <MobileDeptCard key={i} dept={dept} i={i} />
         ))}
-      </div>
-
-      <div className="px-8 mt-4 flex items-center justify-between">
-         <div className="flex gap-2">
-            {departments.map((_, i) => (
-              <MobileProgressBar key={i} i={i} />
-            ))}
-         </div>
-         <span className="text-[10px] font-black text-primary/30 uppercase tracking-widest">Swipe to Explore</span>
       </div>
     </section>
   );
@@ -245,7 +227,7 @@ const Home = () => {
             <div className="flex justify-center">
               <Link
                 to="/contact"
-                className="inline-block px-12 md:px-16 py-6 md:py-8 bg-secondary text-primary text-xl md:text-2xl font-black uppercase tracking-widest hover:bg-white hover:text-primary transition-all shadow-2xl"
+                className="inline-block px-12 md:px-16 py-6 md:py-8 bg-secondary text-primary text-xl md:text-2xl font-black uppercase tracking-widest hover:bg-white hover:text-primary transition-all shadow-2xl rounded-2xl"
               >
                 Let's Talk Business
               </Link>

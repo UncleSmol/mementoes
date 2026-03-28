@@ -1,6 +1,10 @@
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import imgLogistics from '../assets/external/logistics.jpg';
+import imgWaste from '../assets/external/waste-management.jpg';
+import imgConstruction from '../assets/external/construction-site.jpg';
+import imgParkhome from '../assets/external/kwikspace-parkhome.jpg';
 
 interface Service {
   id: string;
@@ -18,7 +22,7 @@ const services: Service[] = [
     subtitle: "Fleet & Transport",
     desc: "Deploying a self-owned, high-performance fleet ranging from 1-ton bakkies to 9-ton trucks. Our logistics division is defined by operational precision and absolute reliability.",
     details: ["1-Ton to 9-Ton Fleet Capacity", "Specialized Capacity Trailers", "Professional PrDP Certified Drivers", "Strategic Freight Management"],
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600"
+    image: imgLogistics
   },
   {
     id: "waste",
@@ -26,7 +30,7 @@ const services: Service[] = [
     subtitle: "Eco-Management",
     desc: "Comprehensive collection and transportation of specialized waste streams. We mitigate environmental impact through rigorous regulatory compliance.",
     details: ["Specialized Waste Tyre Logistics", "Hazardous Material Handling", "General Waste & Recyclables", "Eco-Conscious Disposal Chains"],
-    image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1600"
+    image: imgWaste
   },
   {
     id: "maintenance",
@@ -34,7 +38,7 @@ const services: Service[] = [
     subtitle: "Maintenance Care",
     desc: "High-end building maintenance and repair services designed to preserve structural value and operational continuity.",
     details: ["Concrete & Bricklaying Works", "Expert Plumbing & Carpentry", "Professional Painting Services", "Civils Infrastructure Upkeep"],
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600"
+    image: imgConstruction
   },
   {
     id: "parkhomes",
@@ -42,7 +46,7 @@ const services: Service[] = [
     subtitle: "Mobile Solutions",
     desc: "Full lifecycle management of mobile office units. From initial supply and assembly to professional relocation and maintenance.",
     details: ["Supply & Rapid Assembly", "Professional Unit Relocation", "Infrastructure Maintenance", "Custom Mobile Office Logic"],
-    image: "https://www.kwikspace.co.za/wp-content/uploads/2025/02/Prefab-buildings-for-Sale.jpg"
+    image: imgParkhome
   }
 ];
 
@@ -73,7 +77,7 @@ const ServicesCTA = () => {
            </h2>
            <Link 
             to="/contact" 
-            className="inline-block px-10 py-5 md:px-16 md:py-8 bg-secondary text-primary font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl text-xl md:text-2xl"
+             className="inline-block px-10 py-5 md:px-16 md:py-8 bg-secondary text-primary font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl text-xl md:text-2xl rounded-2xl"
            >
              Get a Quote
            </Link>
@@ -106,35 +110,55 @@ const Services = () => {
   }, [scrollYProgress]);
 
   const xTitle = useTransform(smoothProgress, [0, 1], ["-10%", "10%"]);
-  const yTextHero = useTransform(smoothProgress, [0, 0.2], ["0%", "120%"]);
-  const yBgHero = useTransform(smoothProgress, [0, 0.2], ["0%", "40%"]);
+  const textOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
 
   return (
     <div ref={containerRef} className="bg-dark selection:bg-secondary selection:text-white overflow-x-clip scrollbar-hide relative">
-      {/* Hero Section - Standardized */}
-      <section className="h-screen w-full flex items-center justify-center bg-dark relative overflow-hidden pt-20">
-        <div className="container mx-auto px-6 lg:px-16 relative z-10 text-center">
-          <motion.div
-            style={{ y: yTextHero }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-12 h-[1px] bg-secondary" />
-              <span className="text-secondary font-black text-xs tracking-[0.5em] uppercase">Core Capabilities</span>
-              <div className="w-12 h-[1px] bg-secondary" />
-            </div>
-            <h1 className="text-5xl md:text-8xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter">
-              Integrated <br />
-              <span className="text-secondary italic font-light">Excellence</span>
+      {/* Hero Section */}
+      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
+        <div className="fixed inset-0 z-0">
+          <img src={imgConstruction} alt="Integrated Excellence" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>
+        </div>
+        <div className="container mx-auto px-6 lg:px-16 relative z-10">
+          <motion.div style={{ opacity: textOpacity }} className="max-w-5xl">
+            <motion.div 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex items-center gap-4 mb-6 md:mb-8"
+            >
+              <div className="w-12 md:w-16 h-[2px] bg-secondary"></div>
+              <span className="text-secondary font-black text-[10px] md:text-xs uppercase tracking-[0.5em]">Core Capabilities</span>
+            </motion.div>
+            <h1 className="text-5xl md:text-7xl lg:text-[10vw] font-black text-white leading-[0.9] md:leading-[0.85] uppercase tracking-tighter mb-8 md:mb-10">
+              <span className="block overflow-hidden">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="block">Integrated</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} className="block text-secondary">Excellence</motion.span>
+              </span>
             </h1>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
+            >
+              <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
+                From high-stakes industrial logistics to meticulous building maintenance, our integrated network delivers precision across every sector.
+              </p>
+              <Link to="/contact" className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base rounded-2xl">
+                <span className="relative z-10">Get a Quote</span>
+                <motion.div className="absolute inset-0 bg-white" initial={{ x: "-100%" }} whileHover={{ x: 0 }} transition={{ duration: 0.4, ease: "easeInOut" }} />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
-        <motion.div 
-          style={{ y: yBgHero }}
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2000')] bg-cover bg-center grayscale brightness-[0.15] contrast-125 opacity-50" 
-        />
+        <div className="absolute right-12 bottom-24 hidden lg:block z-10 pointer-events-none">
+          <span className="text-white/10 text-9xl font-black uppercase select-none" style={{ writingMode: 'vertical-rl' }}>MEMENTOES</span>
+        </div>
+        <motion.div style={{ scaleX: scrollYProgress }} className="absolute bottom-0 left-0 right-0 h-1 bg-secondary origin-left z-20" />
       </section>
 
       <div className="relative h-[500vh] bg-dark text-left">
@@ -155,7 +179,7 @@ const Services = () => {
                 className="w-full h-full object-cover brightness-[0.15] contrast-125 grayscale-[40%]" 
                 alt="" 
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-dark via-transparent to-dark opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
             </motion.div>
           </AnimatePresence>
 
@@ -198,7 +222,7 @@ const Services = () => {
                   <div className="grid md:grid-cols-2 gap-4 md:gap-6 lg:gap-16 items-start text-left">
                     <div className="space-y-4 md:space-y-6 text-left">
                       <p className="text-sm md:text-lg lg:text-xl text-white/70 font-light italic leading-relaxed max-w-lg text-left">"{services[activeIndex].desc}"</p>
-                      <Link to="/contact" className="inline-block px-6 py-2.5 md:px-10 md:py-4 bg-secondary text-primary font-black uppercase text-[9px] md:text-[10px] tracking-widest hover:bg-white transition-all">Request Solution</Link>
+                      <Link to="/contact" className="inline-block px-6 py-2.5 md:px-10 md:py-4 bg-secondary text-primary font-black uppercase text-[9px] md:text-[10px] tracking-widest hover:bg-white transition-all rounded-2xl">Request Solution</Link>
                     </div>
                     <div className="flex flex-col gap-1.5 md:gap-3 border-l border-white/10 pl-4 md:pl-12 text-left">
                       {services[activeIndex].details.map((d, di) => (
@@ -229,7 +253,7 @@ const Services = () => {
                   </div>
                 </div>
              </div>
-             <Link to="/about" className="pointer-events-auto px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-black uppercase text-[9px] tracking-widest hover:bg-white hover:text-primary transition-all">Our Story</Link>
+             <Link to="/about" className="pointer-events-auto px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-black uppercase text-[9px] tracking-widest hover:bg-white hover:text-primary transition-all rounded-2xl">Our Story</Link>
           </div>
 
         </div>

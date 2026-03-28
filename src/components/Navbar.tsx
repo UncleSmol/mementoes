@@ -5,26 +5,7 @@ import logo from '../assets/Mementoes Logo.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
-
-  // Scroll logic for hiding/showing desktop nav
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      setIsScrolled(currentScrollY > 100);
-      setLastScrollY(currentScrollY);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -48,9 +29,7 @@ const Navbar = () => {
   return (
     <>
       {/* 1. DESKTOP NAVIGATION (lg+ only) */}
-      <nav className={`fixed top-0 left-0 right-0 z-[100] px-10 py-8 hidden lg:flex items-center justify-between transition-all duration-500 transform ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-      } ${isScrolled ? 'bg-dark/80 backdrop-blur-md py-6 shadow-2xl' : 'bg-transparent'}`}>
+      <nav className="fixed top-0 left-0 right-0 z-[100] px-10 py-8 hidden lg:flex items-center justify-between bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
         <Link to="/">
           <img src={logo} alt="Mementoes" className="h-12 w-auto object-contain" />
         </Link>
@@ -61,22 +40,17 @@ const Navbar = () => {
               key={link.name} 
               to={link.path}
               className={`text-[10px] font-black uppercase tracking-[0.4em] transition-all hover:text-secondary ${
-                location.pathname === link.path ? 'text-secondary' : 'text-white'
+                location.pathname === link.path ? 'text-secondary' : 'text-primary'
               }`}
             >
               {link.name}
             </Link>
           ))}
-          <Link to="/contact" className="px-8 py-3 bg-secondary text-primary font-black uppercase text-[10px] tracking-widest hover:bg-white transition-all">
-            Get Started
-          </Link>
         </div>
       </nav>
 
-      {/* 2. MOBILE FIXED HEADER (Hides on scroll down, shows on scroll up) */}
-      <div className={`fixed top-0 left-0 right-0 z-[120] px-6 py-6 flex items-center justify-between lg:hidden transition-all duration-500 transform ${
-        isVisible || isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-      } ${isScrolled || isMenuOpen ? 'bg-dark/90 backdrop-blur-lg shadow-xl' : 'bg-transparent'}`}>
+      {/* 2. MOBILE FIXED HEADER */}
+      <div className="fixed top-0 left-0 right-0 z-[120] px-6 py-6 flex items-center justify-between lg:hidden bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
         <Link to="/" onClick={() => setIsMenuOpen(false)}>
           <img src={logo} alt="Mementoes" className="h-8 w-auto object-contain" />
         </Link>
@@ -107,15 +81,15 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[110] bg-dark/98 backdrop-blur-3xl flex items-center justify-center overflow-hidden lg:hidden h-dvh w-full"
+            className="fixed inset-0 z-[110] bg-dark/98 backdrop-blur-3xl overflow-hidden lg:hidden h-dvh w-full"
           >
             {/* Background Decorative Text */}
             <span className="absolute bottom-0 left-0 text-[30vw] font-black text-white/[0.02] leading-none select-none pointer-events-none uppercase z-0">
               Menu
             </span>
 
-            <div className="container mx-auto px-10 grid gap-10 items-center relative z-10">
-              <nav className="flex flex-col gap-4 w-full text-left">
+            <div className="container mx-auto px-10 pt-36 pb-12 grid gap-10 items-start relative z-10 overflow-y-auto h-full">
+              <nav className="flex flex-col gap-6 w-full text-left">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
@@ -143,10 +117,10 @@ const Navbar = () => {
                   className="mt-10 flex flex-col items-start gap-6"
                 >
                    <div className="flex gap-6">
-                     <a href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
+                     <a href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all rounded-xl">
                        <i className="bi bi-facebook text-xl"></i>
                      </a>
-                     <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all">
+                     <a href="https://mementoes360.co.za" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-secondary hover:border-secondary transition-all rounded-xl">
                        <i className="bi bi-lightning-charge text-xl"></i>
                      </a>
                    </div>

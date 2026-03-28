@@ -1,13 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import imgWaste from '../assets/external/waste-management.jpg';
+import imgInfra from '../assets/external/infrastructure.jpg';
+import imgLogistics from '../assets/external/logistics.jpg';
+import imgConstruction from '../assets/external/construction-site.jpg';
 
 const projects = [
   {
     title: "Waste Bureau / REDISA",
     location: "National Dealership Network",
     category: "Waste Tyre Logistics",
-    image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1600",
+    image: imgWaste,
     stat: "DEA Partner",
     desc: "Primary transporter of waste tyres from national dealerships to processing depots for the Dept. of Environmental Affairs."
   },
@@ -15,7 +19,7 @@ const projects = [
     title: "Eskom / Kusile Site",
     location: "Kusile Power Station",
     category: "Infrastructure Support",
-    image: "https://images.unsplash.com/photo-1489515229412-1f3a8f08dc34?q=80&w=1600",
+    image: imgInfra,
     stat: "Mobile Solutions",
     desc: "Comprehensive supply, rapid assembly, and professional maintenance of mobile office units at the Kusile Power Station site."
   },
@@ -23,7 +27,7 @@ const projects = [
     title: "Bidvest / Siemens",
     location: "Durban / Richard's Bay",
     category: "Specialized Cargo",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600",
+    image: imgLogistics,
     stat: "Heavy Logistics",
     desc: "Strategic transportation of heavy transformer appliances and critical cargo from major maritime hubs to power stations."
   },
@@ -31,7 +35,7 @@ const projects = [
     title: "Exxaro / Matla Mine",
     location: "Mines 2 & 3",
     category: "Industrial Services",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600",
+    image: imgConstruction,
     stat: "Facility Care",
     desc: "Delivering general building maintenance and specialized industrial laundry services for Exxaro at the Matla mining complex."
   }
@@ -74,7 +78,7 @@ export const ExcellenceAfrica = () => {
               className="w-full h-full object-cover brightness-[0.15] contrast-125 grayscale-[40%]" 
               alt="" 
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-dark via-transparent to-dark opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
           </motion.div>
         </AnimatePresence>
 
@@ -118,7 +122,7 @@ export const ExcellenceAfrica = () => {
                     <p className="text-lg md:text-xl text-white/60 font-light italic leading-relaxed max-w-md text-left">
                       {projects[activeIndex].desc}
                     </p>
-                    <div className="inline-block px-4 py-1.5 bg-secondary text-primary font-black text-[8px] uppercase tracking-widest">
+                    <div className="inline-block px-4 py-1.5 bg-secondary text-primary font-black text-[8px] uppercase tracking-widest rounded-xl">
                       {projects[activeIndex].category}
                     </div>
                   </div>
@@ -150,7 +154,7 @@ export const ExcellenceAfrica = () => {
               </div>
            </div>
            
-           <Link to="/portfolio" className="pointer-events-auto group px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 text-white font-black uppercase text-[9px] tracking-widest hover:bg-white hover:text-primary transition-all">
+           <Link to="/portfolio" className="pointer-events-auto group px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 text-white font-black uppercase text-[9px] tracking-widest hover:bg-white hover:text-primary transition-all rounded-2xl">
               Portfolio <i className="bi bi-arrow-up-right ml-2 group-hover:rotate-45 transition-transform inline-block"></i>
            </Link>
         </div>

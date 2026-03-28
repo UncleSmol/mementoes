@@ -1,16 +1,17 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import AboutUs from './pages/AboutUs';
-import Services from './pages/Services';
-import Mementoes360 from './pages/Mementoes360';
-import Portfolio from './pages/Portfolio';
-import Contact from './pages/Contact';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
-import Page404 from './pages/Page404';
+
+const Home = lazy(() => import('./pages/Home'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
+const Services = lazy(() => import('./pages/Services'));
+const Mementoes360 = lazy(() => import('./pages/Mementoes360'));
+const Portfolio = lazy(() => import('./pages/Portfolio'));
+const Contact = lazy(() => import('./pages/Contact'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const Page404 = lazy(() => import('./pages/Page404'));
 
 // Component to handle scroll reset on route change
 function ScrollToTop() {
@@ -23,6 +24,17 @@ function ScrollToTop() {
   return null;
 }
 
+function LoadingFallback() {
+  return (
+    <div className="h-screen w-full flex items-center justify-center bg-dark">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-8 h-8 border-2 border-secondary border-t-transparent rounded-full animate-spin" />
+        <span className="text-white/30 font-black text-[9px] uppercase tracking-[0.5em]">Loading</span>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
@@ -30,18 +42,20 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/mementoes360" element={<Mementoes360 />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            {/* Catch-all route for 404 */}
-            <Route path="*" element={<Page404 />} />
-          </Routes>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/mementoes360" element={<Mementoes360 />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              {/* Catch-all route for 404 */}
+              <Route path="*" element={<Page404 />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>

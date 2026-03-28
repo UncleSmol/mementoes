@@ -1,29 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import imgConstruction from '../assets/external/construction-site.jpg';
+import imgWaste from '../assets/external/waste-management.jpg';
+import imgLogistics from '../assets/external/logistics.jpg';
+import imgIndustrial from '../assets/external/industrial-building.jpg';
 
 const portfolioItems = [
   {
     title: "Civil Infrastructure Project",
     category: "Construction",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200",
+    image: imgConstruction,
     description: "Major road and drainage infrastructure development."
   },
   {
     title: "Eco-Waste Management Fleet",
     category: "Environmental",
-    image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1200",
+    image: imgWaste,
     description: "Deployment of specialized waste handling units."
   },
   {
     title: "Regional Logistics Hub",
     category: "Logistics",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200",
+    image: imgLogistics,
     description: "Supply chain management and material transport."
   },
   {
     title: "Industrial Building Site",
     category: "Construction",
-    image: "https://images.unsplash.com/photo-1541888941259-7927ad9a4c28?q=80&w=1200",
+    image: imgIndustrial,
     description: "Foundation and structural work for commercial premises."
   }
 ];
@@ -90,13 +94,14 @@ export const PortfolioCarousel = () => {
                 key={index} 
                 className="embla__slide flex-[0_0_85%] md:flex-[0_0_45%] lg:flex-[0_0_35%] relative group"
               >
-                <div className="relative h-[500px] overflow-hidden shadow-2xl">
+                <div className="relative h-[500px] overflow-hidden shadow-2xl rounded-2xl">
                   <img 
                     src={item.image} 
                     alt={item.title} 
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent rounded-2xl"></div>
                   
                   <div className="absolute bottom-0 left-0 p-8 w-full text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <span className="inline-block px-3 py-1 bg-secondary text-white text-[10px] font-bold uppercase tracking-widest mb-3">

@@ -1,6 +1,12 @@
 import { motion, useScroll, useTransform, useSpring, MotionValue, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import imgAboutHero from '../assets/external/about-hero.jpg';
+import imgAboutTeam from '../assets/external/about-team.jpg';
+import imgExxaro from '../assets/external/exxaro.jpg';
+import imgSab from '../assets/external/sab-johannesburg.jpeg';
+import logoSab from '../assets/external/sab-logo.png';
+import logoExxaro from '../assets/external/exxaro-logo.png';
 
 const Word = ({ word, range, progress }: { word: string, range: [number, number], progress: MotionValue<number> }) => {
   const opacity = useTransform(progress, range, [0.15, 1]);
@@ -37,8 +43,8 @@ const ValidatedExcellence = () => {
       id: "01",
       name: "Exxaro Resources",
       role: "Industrial Partner",
-      image: "https://www.moneyweb.co.za/wp-content/uploads/2014/10/Exxaro-Growthpoint-22-1024x768.jpg",
-      logo: "https://th.bing.com/th/id/OIP.MIBoL61C8rkZW5IkOCYpIAHaD3?w=345&h=180&c=7&r=0&o=7&pid=1.7&rm=3",
+      image: imgExxaro,
+      logo: logoExxaro,
       desc: "In strategic partnership with SAICA, we ensure rigorous operational success for large-scale industrial landscapes.",
       stat: "Host Built",
       label: "Impact Node"
@@ -47,8 +53,8 @@ const ValidatedExcellence = () => {
       id: "02",
       name: "SAB / ABInBev",
       role: "Supply Chain Finalist",
-      image: "https://mg.co.za/wp-content/uploads/2020/02/bbabb99e-sab-johannesburg-.jpeg",
-      logo: "https://www.sab.co.za/sites/g/files/seuoyk2041/files/brand_0.png",
+      image: imgSab,
+      logo: logoSab,
       desc: "Accelerating supply-chain readiness through elite business mentoring to catalyze sustainable jobs and market access.",
       stat: "Finalist 8",
       label: "Global Status"
@@ -91,7 +97,7 @@ const ValidatedExcellence = () => {
               className="w-full h-full object-cover brightness-[0.15] contrast-125 grayscale-[40%]" 
               alt="" 
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-dark via-transparent to-dark opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
           </motion.div>
         </AnimatePresence>
 
@@ -130,14 +136,14 @@ const ValidatedExcellence = () => {
                       <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] md:tracking-[0.8em] uppercase">Catalyst {catalysts[activeIndex].id}</span>
                     </div>
                     <h2 className="text-3xl md:text-5xl lg:text-[6vw] font-black text-white uppercase leading-[0.85] tracking-tighter mb-6 lg:mb-0 text-left flex flex-col items-start gap-4 md:gap-8">
-                      <div className="bg-white p-3 md:p-4 shadow-2xl border-l-[8px] border-secondary">
+                      <div className="bg-white p-3 md:p-4 shadow-2xl border-l-[8px] border-secondary rounded-2xl">
                         <img src={catalysts[activeIndex].logo} alt="" className="h-6 md:h-12 w-auto object-contain" />
                       </div>
                       <span className="text-secondary italic font-light text-left text-xl md:text-4xl">{catalysts[activeIndex].role}</span>
                     </h2>
                   </div>
                   <div className="lg:col-span-7 flex justify-end">
-                    <div className="bg-dark/50 backdrop-blur-2xl p-6 md:p-10 text-white relative shadow-2xl border-l-[8px] md:border-l-[12px] border-secondary w-full max-w-2xl lg:ml-auto text-left">
+                    <div className="bg-dark/50 backdrop-blur-2xl p-6 md:p-10 text-white relative shadow-2xl border-l-[8px] md:border-l-[12px] border-secondary w-full max-w-2xl lg:ml-auto text-left rounded-2xl">
                       <p className="text-base md:text-xl font-light italic leading-relaxed mb-6 md:mb-10 opacity-80 text-left">
                         "{catalysts[activeIndex].desc}"
                       </p>
@@ -179,28 +185,56 @@ const AboutUs = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const smoothScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const yBg = useTransform(smoothScroll, [0, 0.2], ["0%", "40%"]);
   const yImageParallax = useTransform(smoothScroll, [0.1, 0.4], ["0%", "15%"]);
   const floatingY = useTransform(smoothScroll, [0, 1], [0, -400]);
-  const yTextHero = useTransform(smoothScroll, [0, 0.2], ["0%", "120%"]);
+  const textOpacity = useTransform(smoothScroll, [0, 0.15], [1, 0]);
 
   return (
     <div ref={containerRef} className="bg-white text-left relative overflow-x-clip scrollbar-hide">
-      {/* Hero Section - Standardized */}
-      <section className="relative h-screen w-full flex items-center bg-dark overflow-hidden pt-24 md:pt-0">
-        <motion.div style={{ y: yBg, scale: 1.1 }} className="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1573164574511-73c773193279?q=80&w=2000" className="w-full h-full object-cover grayscale brightness-[0.3] contrast-125" alt="" />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-transparent to-dark" />
-        </motion.div>
-        <div className="container mx-auto px-6 lg:px-16 relative z-10 text-left">
-          <motion.div style={{ y: yTextHero }}>
-            <div className="flex items-center gap-4 mb-6 md:mb-10 text-left">
-              <div className="w-12 md:w-16 h-[2px] bg-secondary text-left"></div>
-              <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Established 2012</span>
-            </div>
-            <h1 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-white uppercase leading-[0.9] tracking-tighter text-left">The Mementoes <br /><span className="text-secondary italic font-light text-left">Story</span></h1>
+      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
+        <div className="fixed inset-0 z-0">
+          <img src={imgAboutHero} alt="About Mementoes" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>
+        </div>
+        <div className="container mx-auto px-6 lg:px-16 relative z-10">
+          <motion.div style={{ opacity: textOpacity }} className="max-w-5xl">
+            <motion.div 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex items-center gap-4 mb-6 md:mb-8"
+            >
+              <div className="w-12 md:w-16 h-[2px] bg-secondary"></div>
+              <span className="text-secondary font-black text-[10px] md:text-xs uppercase tracking-[0.5em]">Established 2012</span>
+            </motion.div>
+            <h1 className="text-5xl md:text-7xl lg:text-[10vw] font-black text-white leading-[0.9] md:leading-[0.85] uppercase tracking-tighter mb-8 md:mb-10">
+              <span className="block overflow-hidden">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="block">The Mementoes</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} className="block text-secondary">Story</motion.span>
+              </span>
+            </h1>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
+            >
+              <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
+                From humble beginnings in 2012 to a multi-sector force redefining logistics, waste management, and construction across South Africa.
+              </p>
+              <Link to="/contact" className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base rounded-2xl">
+                <span className="relative z-10">Our Heritage</span>
+                <motion.div className="absolute inset-0 bg-white" initial={{ x: "-100%" }} whileHover={{ x: 0 }} transition={{ duration: 0.4, ease: "easeInOut" }} />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
+        <div className="absolute right-12 bottom-24 hidden lg:block z-10 pointer-events-none">
+          <span className="text-white/10 text-9xl font-black uppercase select-none" style={{ writingMode: 'vertical-rl' }}>MEMENTOES</span>
+        </div>
+        <motion.div style={{ scaleX: scrollYProgress }} className="absolute bottom-0 left-0 right-0 h-1 bg-secondary origin-left z-20" />
       </section>
 
       <section className="relative py-24 md:py-40 lg:py-60 border-b border-gray-50 overflow-hidden text-left bg-white">
@@ -221,16 +255,17 @@ const AboutUs = () => {
               </div>
             </div>
             <div className="lg:col-span-4 relative pt-12 lg:pt-40">
-              <div className="w-full aspect-[4/5] bg-primary shadow-2xl relative">
-                <div className="absolute inset-0 overflow-hidden">
+              <div className="w-full aspect-[4/5] bg-primary shadow-2xl relative rounded-2xl">
+                <div className="absolute inset-0 overflow-hidden rounded-2xl">
                   <motion.img 
                     style={{ y: yImageParallax }}
-                    src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1200" 
+                    src={imgAboutTeam}
+                    loading="lazy"
                     className="w-full h-[120%] object-cover brightness-75 grayscale contrast-125" 
                     alt="" 
                   />
                 </div>
-                <div className="absolute bottom-0 right-0 p-6 md:p-10 bg-secondary text-primary font-black text-[10px] md:text-sm uppercase tracking-widest z-20 shadow-2xl translate-x-4 translate-y-4">100% BLACK <br />WOMEN OWNED</div>
+                <div className="absolute bottom-0 right-0 p-6 md:p-10 bg-secondary text-primary font-black text-[10px] md:text-sm uppercase tracking-widest z-20 shadow-2xl translate-x-4 translate-y-4 rounded-2xl">100% BLACK <br />WOMEN OWNED</div>
               </div>
             </div>
           </div>
@@ -248,7 +283,7 @@ const AboutUs = () => {
             { title: "Mission", desc: "Delivering world-class logistics that preserves the silent environment." },
             { title: "Edge", desc: "A highly competent workforce executing with holistic rigor." }
           ].map((p, i) => (
-            <div key={i} className="p-8 bg-white border-l-4 border-secondary shadow-sm">
+            <div key={i} className="p-8 bg-white border-l-4 border-secondary shadow-sm rounded-2xl">
               <h4 className="text-xl font-black text-primary uppercase mb-2">{p.title}</h4>
               <p className="text-sm text-gray-500 font-light leading-relaxed">{p.desc}</p>
             </div>
@@ -262,7 +297,7 @@ const AboutUs = () => {
         <div className="container mx-auto px-6 text-center relative z-10 text-center">
           <motion.div initial={{ scale: 0.9, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 1 }} className="text-center">
             <h2 className="text-5xl md:text-[10rem] font-black text-white uppercase leading-none mb-12 md:mb-16 tracking-tighter text-center">Let's <br /> <span className="text-secondary italic text-center">Scale</span></h2>
-            <button className="inline-block px-10 py-5 md:px-16 md:py-8 bg-secondary text-primary font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl active:scale-95 text-xl md:text-2xl">Join Our Network</button>
+            <button className="inline-block px-10 py-5 md:px-16 md:py-8 bg-secondary text-primary font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl active:scale-95 text-xl md:text-2xl rounded-2xl">Join Our Network</button>
           </motion.div>
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-white/[0.03] uppercase pointer-events-none whitespace-nowrap">GROWTH</div>
