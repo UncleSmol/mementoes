@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import logo from '../assets/Mementoes Logo.png';
 
 const Maintenance = () => {
   return (
@@ -7,16 +6,6 @@ const Maintenance = () => {
       {/* Cinematic Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-primary/15 blur-[200px] pointer-events-none" />
       <div className="absolute top-1/3 left-1/4 w-[40vw] h-[40vw] bg-secondary/10 blur-[180px] pointer-events-none" />
-
-      {/* Background Logo Effect */}
-      <motion.img
-        src={logo}
-        alt=""
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 0.04, scale: 1 }}
-        transition={{ duration: 3 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] md:w-[35vw] max-w-[500px] h-auto object-contain pointer-events-none select-none"
-      />
 
       {/* Large Background Watermark */}
       <motion.span
