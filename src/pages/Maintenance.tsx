@@ -3,7 +3,7 @@ import logo from '../assets/Mementoes Logo.png';
 
 const Maintenance = () => {
   return (
-    <div className="relative min-h-screen w-full bg-dark flex items-center justify-center overflow-hidden">
+    <div className="relative h-dvh w-full bg-dark flex flex-col items-center justify-center overflow-hidden">
       {/* Cinematic Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-primary/15 blur-[200px] pointer-events-none" />
       <div className="absolute top-1/3 left-1/4 w-[40vw] h-[40vw] bg-secondary/10 blur-[180px] pointer-events-none" />
@@ -37,7 +37,7 @@ const Maintenance = () => {
       />
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 md:px-16 relative z-10 text-center">
+      <div className="container mx-auto px-6 md:px-16 relative z-10 text-center flex flex-col items-center justify-center flex-1 gap-y-4 md:gap-y-6">
         <motion.div
           initial={{ y: 60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -49,9 +49,9 @@ const Maintenance = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="mb-12 md:mb-16"
+            className="mb-6 md:mb-10"
           >
-            <div className="w-24 md:w-32 h-auto bg-white/5 backdrop-blur-sm border border-white/10 p-4 md:p-6 flex items-center justify-center rounded-2xl">
+            <div className="w-16 md:w-24 h-auto bg-white/5 backdrop-blur-sm border border-white/10 p-3 md:p-5 flex items-center justify-center rounded-2xl">
               <img
                 src={logo}
                 alt="Mementoes Trading"
@@ -65,7 +65,7 @@ const Maintenance = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex items-center gap-4 mb-8 md:mb-10"
+            className="flex items-center gap-4 mb-4 md:mb-6"
           >
             <div className="w-8 md:w-12 h-[1px] bg-secondary" />
             <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.6em] uppercase">
@@ -79,7 +79,7 @@ const Maintenance = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-7xl lg:text-[8vw] font-black text-white uppercase leading-[0.85] tracking-tighter mb-6 md:mb-8"
+            className="text-4xl md:text-7xl lg:text-[8vw] font-black text-white uppercase leading-[0.85] tracking-tighter mb-4 md:mb-6"
           >
             Page Under
             <br />
@@ -91,7 +91,7 @@ const Maintenance = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-gray-400 text-base md:text-xl lg:text-2xl font-light max-w-2xl mx-auto mb-12 md:mb-16 leading-relaxed"
+            className="text-gray-400 text-sm md:text-xl lg:text-2xl font-light max-w-2xl mx-auto mb-6 md:mb-10 leading-relaxed"
           >
             We are currently building something extraordinary. Our new digital experience is being crafted with precision and will be unveiled soon.
           </motion.p>
@@ -101,7 +101,7 @@ const Maintenance = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
-            className="flex flex-col md:flex-row items-center gap-6 md:gap-10"
+            className="flex flex-col md:flex-row items-center gap-4 md:gap-10"
           >
             {/* Live Pulse */}
             <div className="flex items-center gap-3">
@@ -120,7 +120,7 @@ const Maintenance = () => {
             {/* Contact CTA */}
             <a
               href="mailto:info@mementoes360.co.za"
-              className="group relative px-8 py-4 md:px-10 md:py-5 bg-white/5 border border-white/10 text-white font-black uppercase text-[10px] md:text-xs tracking-[0.3em] overflow-hidden transition-all hover:border-secondary hover:text-secondary rounded-2xl"
+              className="group relative px-8 py-3 md:px-10 md:py-5 bg-white/5 border border-white/10 text-white font-black uppercase text-[10px] md:text-xs tracking-[0.3em] overflow-hidden transition-all hover:border-secondary hover:text-secondary rounded-2xl"
             >
               <span className="relative z-10 flex items-center gap-3">
                 <i className="bi bi-envelope text-sm" />
@@ -134,13 +134,13 @@ const Maintenance = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.1 }}
-            className="mt-16 md:mt-20 flex items-center gap-5"
+            className="mt-8 md:mt-14 flex items-center gap-5"
           >
             <a
               href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-white/30 hover:text-secondary hover:border-secondary transition-all rounded-xl"
+              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center bg-white/5 border border-white/10 text-white/30 hover:text-secondary hover:border-secondary transition-all rounded-xl"
             >
               <i className="bi bi-facebook text-lg" />
             </a>
@@ -148,7 +148,7 @@ const Maintenance = () => {
               href="https://mementoes360.co.za"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-white/30 hover:text-secondary hover:border-secondary transition-all rounded-xl"
+              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center bg-white/5 border border-white/10 text-white/30 hover:text-secondary hover:border-secondary transition-all rounded-xl"
             >
               <i className="bi bi-lightning-charge text-lg" />
             </a>

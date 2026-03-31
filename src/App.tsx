@@ -42,6 +42,15 @@ function AppLayout() {
   const { pathname } = useLocation();
   const hideChrome = NO_CHROME_ROUTES.includes(pathname);
 
+  useEffect(() => {
+    if (hideChrome) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [hideChrome]);
+
   return (
     <div className="flex flex-col min-h-screen">
       {!hideChrome && <Navbar />}
