@@ -8,6 +8,16 @@ const Maintenance = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-primary/15 blur-[200px] pointer-events-none" />
       <div className="absolute top-1/3 left-1/4 w-[40vw] h-[40vw] bg-secondary/10 blur-[180px] pointer-events-none" />
 
+      {/* Background Logo Effect */}
+      <motion.img
+        src={logo}
+        alt=""
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 0.04, scale: 1 }}
+        transition={{ duration: 3 }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] md:w-[35vw] max-w-[500px] h-auto object-contain pointer-events-none select-none"
+      />
+
       {/* Large Background Watermark */}
       <motion.span
         initial={{ opacity: 0 }}
@@ -44,22 +54,6 @@ const Maintenance = () => {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col items-center"
         >
-          {/* Logo */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="mb-6 md:mb-10"
-          >
-            <div className="w-16 md:w-24 h-auto bg-white/5 backdrop-blur-sm border border-white/10 p-3 md:p-5 flex items-center justify-center rounded-2xl">
-              <img
-                src={logo}
-                alt="Mementoes Trading"
-                className="w-full h-auto object-contain"
-              />
-            </div>
-          </motion.div>
-
           {/* Section Tag */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -126,31 +120,6 @@ const Maintenance = () => {
                 <i className="bi bi-envelope text-sm" />
                 Contact Us
               </span>
-            </a>
-          </motion.div>
-
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
-            className="mt-8 md:mt-14 flex items-center gap-5"
-          >
-            <a
-              href="https://www.facebook.com/profile.php?id=100063811852754&locale=gn_PY#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center bg-white/5 border border-white/10 text-white/30 hover:text-secondary hover:border-secondary transition-all rounded-xl"
-            >
-              <i className="bi bi-facebook text-lg" />
-            </a>
-            <a
-              href="https://mementoes360.co.za"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center bg-white/5 border border-white/10 text-white/30 hover:text-secondary hover:border-secondary transition-all rounded-xl"
-            >
-              <i className="bi bi-lightning-charge text-lg" />
             </a>
           </motion.div>
         </motion.div>
