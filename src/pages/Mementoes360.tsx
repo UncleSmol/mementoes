@@ -67,7 +67,7 @@ const Mementoes360 = () => {
               className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
             >
               <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
-                A holistic commitment to community elevation, skill-building, and the future of African industry.
+                Community development, skills training, and building the next generation of South African workers.
               </p>
               <Link to="/contact" className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base rounded-2xl">
                 <span className="relative z-10">Get Involved</span>
@@ -102,10 +102,10 @@ const Mementoes360 = () => {
                   <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 -z-0 blur-3xl group-hover:bg-secondary/10 transition-colors" />
                   <span className="text-primary font-black text-[10px] uppercase tracking-widest block mb-6 opacity-40">Program Manifesto</span>
                   <p className="text-xl md:text-2xl text-primary font-bold uppercase tracking-tighter leading-tight mb-6 italic">
-                    "Empowering the next generation of industrial leaders in Ga-Nala through specialized technical education."
+                    "Training the next generation of skilled workers in Ga-Nala through hands-on technical education."
                   </p>
                   <p className="text-gray-500 font-light leading-relaxed mb-8">
-                    The Mementoes 2026 Bursary Program was specifically architected to bridge the local skills gap. By providing full financial and structural support for youth entering the fields of Plumbing, Electrical Engineering, and Civil Engineering, we are not just funding education—we are building the future workforce of South Africa's industrial heartland.
+                    The Mementoes 2026 Bursary Program was created to close the local skills gap. We provide full funding and support for young people training in Plumbing, Electrical Engineering, and Civil Engineering — building the workforce South Africa needs.
                   </p>
                   <div className="grid grid-cols-2 gap-6 pt-6 border-t border-gray-100">
                     <div className="flex flex-col">
@@ -188,7 +188,7 @@ const Mementoes360 = () => {
           <div className="flex flex-col items-center mb-24 text-center">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-[1px] bg-secondary" />
-              <span className="text-secondary font-black text-[10px] tracking-[0.5em] uppercase">Identity Shift</span>
+              <span className="text-secondary font-black text-[10px] tracking-[0.5em] uppercase">A New Look</span>
               <div className="w-12 h-[1px] bg-secondary" />
             </div>
             <h2 className="text-5xl md:text-8xl font-black text-white uppercase leading-none mb-8 tracking-tighter text-center">
@@ -243,7 +243,7 @@ const Mementoes360 = () => {
 
               <div className="pt-8 border-t border-white/10 text-left">
                 <p className="text-xl text-white/40 font-light italic leading-relaxed text-left">
-                  "Our new visual identity represents a future of structural precision, unwavering commitment to sustainability, and the evolution of a multi-sector force."
+                  "Our new look reflects where we're headed — steady growth, sustainability, and doing more across the industries we serve."
                 </p>
               </div>
             </div>

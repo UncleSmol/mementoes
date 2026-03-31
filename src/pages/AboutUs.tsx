@@ -45,7 +45,7 @@ const ValidatedExcellence = () => {
       role: "Industrial Partner",
       image: imgExxaro,
       logo: logoExxaro,
-      desc: "In strategic partnership with SAICA, we ensure rigorous operational success for large-scale industrial landscapes.",
+      desc: "Working alongside SAICA to deliver reliable operations for large-scale industrial clients.",
       stat: "Host Built",
       label: "Impact Node"
     },
@@ -55,7 +55,7 @@ const ValidatedExcellence = () => {
       role: "Supply Chain Finalist",
       image: imgSab,
       logo: logoSab,
-      desc: "Accelerating supply-chain readiness through elite business mentoring to catalyze sustainable jobs and market access.",
+      desc: "Building supply-chain readiness through business mentoring to create jobs and open new markets.",
       stat: "Finalist 8",
       label: "Global Status"
     }
@@ -222,12 +222,8 @@ const AboutUs = () => {
               className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
             >
               <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
-                From humble beginnings in 2012 to a multi-sector force redefining logistics, waste management, and construction across South Africa.
+                From a small start in 2012 to a business covering logistics, waste management, and construction across South Africa.
               </p>
-              <Link to="/contact" className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base rounded-2xl">
-                <span className="relative z-10">Our Heritage</span>
-                <motion.div className="absolute inset-0 bg-white" initial={{ x: "-100%" }} whileHover={{ x: 0 }} transition={{ duration: 0.4, ease: "easeInOut" }} />
-              </Link>
             </motion.div>
           </motion.div>
         </div>
@@ -246,7 +242,7 @@ const AboutUs = () => {
               <div className="space-y-8 md:space-y-12 max-w-3xl">
                 <h3 className="text-lg md:text-3xl font-light text-primary italic leading-tight border-l-4 md:border-l-8 border-secondary pl-6 md:pl-8">"Nature holds no voice of its own. We have made it our mission to be the echo of the environment."</h3>
                 <div className="space-y-8 md:space-y-10 max-w-2xl text-left">
-                  <p className="text-base md:text-xl text-gray-500 font-light leading-relaxed text-left">Founded in 2012 by <span className="font-bold text-primary italic">Zodwa Mlangeni</span>, Mementoes Trading has scaled from a local endeavor into a multi-sector force with national reach across South Africa's industrial heartland.</p>
+                  <p className="text-base md:text-xl text-gray-500 font-light leading-relaxed text-left">Founded in 2012 by <span className="font-bold text-primary italic">Zodwa Mlangeni</span>, Mementoes Trading has grown from a local business into a multi-sector company serving clients across South Africa.</p>
                   <div className="flex flex-wrap gap-8 md:gap-12 pt-4">
                      <div className="flex flex-col"><span className="text-3xl md:text-4xl font-black text-primary leading-none">07</span><span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-secondary mt-2 md:mt-3">Sustainable Jobs</span></div>
                      <div className="flex flex-col border-l border-gray-100 pl-8 md:pl-12"><span className="text-3xl md:text-4xl font-black text-primary leading-none">12+</span><span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-secondary mt-2 md:mt-3">Years Active</span></div>
@@ -279,9 +275,9 @@ const AboutUs = () => {
         </div>
         <div className="space-y-4">
           {[
-            { title: "Vision", desc: "Redefining industrial standards through advocacy and structural precision." },
-            { title: "Mission", desc: "Delivering world-class logistics that preserves the silent environment." },
-            { title: "Edge", desc: "A highly competent workforce executing with holistic rigor." }
+            { title: "Vision", desc: "Building responsibly and raising the bar in the industries we work in." },
+            { title: "Mission", desc: "Delivering logistics and services that get the job done with minimal environmental impact." },
+            { title: "Edge", desc: "A skilled team that shows up and delivers, every time." }
           ].map((p, i) => (
             <div key={i} className="p-8 bg-white border-l-4 border-secondary shadow-sm rounded-2xl">
               <h4 className="text-xl font-black text-primary uppercase mb-2">{p.title}</h4>

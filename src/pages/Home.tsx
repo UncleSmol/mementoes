@@ -28,11 +28,11 @@ const MissionSection = () => {
               <span className="text-secondary font-black text-[10px] md:text-xs tracking-[0.5em] uppercase text-left">Core Mission</span>
             </div>
             <h2 className="text-4xl md:text-7xl font-black text-primary uppercase leading-[0.9] tracking-tighter text-left">
-              The Architecture <br />
-              <span className="text-secondary italic font-light text-left">of Movement</span>
+              Built to <br />
+              <span className="text-secondary italic font-light text-left">Move</span>
             </h2>
             <p className="text-base md:text-2xl text-gray-500 font-light leading-relaxed max-w-xl text-left">
-              From high-stakes industrial logistics to the meticulous assembly of mobile infrastructure, we bridge the gap between heavy industry and environmental stewardship. 
+              We move goods, manage waste, and build infrastructure — with care for the environment and the communities we serve. 
             </p>
             <div className="pt-4 md:pt-6 text-left">
               <Link to="/about" className="inline-block px-8 py-4 md:px-10 md:py-5 bg-primary text-white font-black uppercase text-[10px] md:text-xs tracking-widest hover:bg-secondary hover:text-primary transition-all shadow-xl text-left rounded-2xl">
@@ -106,9 +106,9 @@ const DepartmentShowcase = () => {
   }, [springProgress, activeIndex]);
 
   const departments: Department[] = [
-    { title: "Logistics", tag: "Streamlined Flow", desc: "Architecting the movement of goods with surgical precision.", image: imgLogistics },       
-    { title: "Waste", tag: "Ethical Disposal", desc: "Engineering the future of waste management responsibly.", image: imgWaste },
-    { title: "Building", tag: "Structural Form", desc: "Creating landmarks defined by meticulous attention to detail.", image: imgInfra }
+    { title: "Logistics", tag: "Transport", desc: "Moving goods where they need to go, safely and on time.", image: imgLogistics },       
+    { title: "Waste", tag: "Management", desc: "Responsible waste collection and disposal for a cleaner environment.", image: imgWaste },
+    { title: "Building", tag: "Construction", desc: "Building and maintaining structures that last.", image: imgInfra }
   ];
 
   return (
@@ -176,9 +176,9 @@ const MobileDeptCard = ({ dept, i }: { dept: MobileDept, i: number }) => {
 
 const MobileDepartmentSlider = () => {
   const departments: MobileDept[] = [
-    { title: "Logistics", tag: "Flow", image: imgLogistics, icon: "bi-truck", desc: "Surgical precision in goods movement and supply chain architecture." },
-    { title: "Waste", tag: "Ethics", image: imgWaste, icon: "bi-recycle", desc: "Engineering eco-conscious methodologies for modern waste management." },
-    { title: "Building", tag: "Form", image: imgInfra, icon: "bi-building", desc: "Creating landmarks of quality with meticulous structural durability." }
+    { title: "Logistics", tag: "Transport", image: imgLogistics, icon: "bi-truck", desc: "Reliable goods transport and supply chain support across South Africa." },
+    { title: "Waste", tag: "Management", image: imgWaste, icon: "bi-recycle", desc: "Waste collection and disposal services built around environmental care." },
+    { title: "Building", tag: "Construction", image: imgInfra, icon: "bi-building", desc: "Construction and maintenance for industrial and commercial sites." }
   ];
 
   return (

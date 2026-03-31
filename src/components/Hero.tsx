@@ -71,7 +71,7 @@ const Hero = () => {
             className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
           >
             <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
-              We redefine logistics, waste management, and construction through an eco-conscious lens. Precision engineering meets environmental stewardship.
+              We handle logistics, waste management, and construction — built on discipline and done right.
             </p>
             
             <Link 

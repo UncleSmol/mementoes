@@ -31,7 +31,7 @@ const projects: Project[] = [
     subtitle: "Environmental Affairs",
     location: "National Network",
     tags: ["Logistics", "Eco-Management"],
-    desc: "Primary transporter of waste tyres from national dealerships to specialized depots.",
+    desc: "Waste tyre collection from dealerships across the country.",
     stat: "DEA Partner",
     image: imgWaste
   },
@@ -41,7 +41,7 @@ const projects: Project[] = [
     subtitle: "Infrastructure Support",
     location: "Kusile Power Station",
     tags: ["Construction", "Maintenance"],
-    desc: "Comprehensive supply, assembly, and professional maintenance of mobile office units.",        
+    desc: "Supply, assembly, and maintenance of mobile office units on site.",
     stat: "Kusile Site",
     image: imgInfra
   },
@@ -51,7 +51,7 @@ const projects: Project[] = [
     subtitle: "In Partnership with Siemens",
     location: "Durban / Richard's Bay",
     tags: ["Heavy Freight", "Energy Grid"],
-    desc: "Transportation of heavy transformer appliances and critical cargo to power stations.",        
+    desc: "Heavy transformer and critical cargo transport to power stations.",
     stat: "Heavy Cargo",
     image: imgLogistics
   },
@@ -61,7 +61,7 @@ const projects: Project[] = [
     subtitle: "Matla Mine 2 & 3",
     location: "Mpumalanga",
     tags: ["Industrial", "Facility Care"],
-    desc: "General building maintenance and specialized industrial laundry services.",
+      desc: "Building maintenance and industrial laundry services.",
     stat: "Matla Mine",
     image: imgConstruction
   }
@@ -96,35 +96,35 @@ const InfiniteLogoScroll = () => {
       logo: logoRedisa,        
       url: "https://redisa.org.za",
       desc: "The Recycling and Economic Development Initiative of South Africa.",
-      impact: "National Waste Tyre Logistics"
+      impact: "Waste Collection & Processing"
     },
     { 
       name: "Siemens", 
       logo: logoSiemens,
       url: "https://www.siemens.com",
       desc: "Global powerhouse in electronics and electrical engineering.",
-      impact: "Critical Cargo Transportation"
+      impact: "Heavy Freight"
     },
     { 
       name: "Bidvest Panalpina", 
       logo: logoBidvest,
       url: "https://www.bidvest.co.za",
       desc: "Leading international provider of integrated logistics.",
-      impact: "Strategic Freight Partnerships"
+      impact: "Freight Partnership"
     },
     { 
       name: "Environmental Affairs", 
       logo: logoEnvAffairs,      
       url: "https://www.dffe.gov.za",
       desc: "Department of Forestry, Fisheries and the Environment.",
-      impact: "National Eco-Logistics Strategy"
+      impact: "Environmental Logistics"
     },
     { 
       name: "Waste Bureau", 
       logo: logoWasteBureau,
       url: "https://www.environment.gov.za",
       desc: "A specialized agency under the Dept of Environmental Affairs.",
-      impact: "Waste Management Optimization"
+      impact: "Waste Management"
     }
   ];
 
@@ -138,11 +138,11 @@ const InfiniteLogoScroll = () => {
         <div className="container mx-auto px-6 lg:px-16 mb-16 text-left">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-[1px] bg-secondary"></div>
-            <span className="text-secondary font-black text-[10px] tracking-[0.6em] uppercase">Validated Network</span>
+            <span className="text-secondary font-black text-[10px] tracking-[0.6em] uppercase">Partners</span>
           </div>
-          <h2 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-primary uppercase tracking-tighter mb-6">Strategic <span className="text-secondary italic font-light">Alliances</span></h2>
+          <h2 className="text-4xl md:text-7xl lg:text-[10vw] font-black text-primary uppercase tracking-tighter mb-6">Our <span className="text-secondary italic font-light">Clients</span></h2>
           <p className="text-gray-500 font-light text-lg md:text-xl max-w-2xl leading-relaxed">
-            We are proud to collaborate with Africa's most influential industrial leaders and governmental bodies. These partnerships are the foundation of our operational excellence and shared impact.
+            We work with some of South Africa's biggest names in industry and government. These partnerships drive everything we do.
           </p>
         </div>
 
@@ -204,7 +204,7 @@ const ProjectCard = ({ project, index }: { project: Project, index: number }) =>
             transition={{ delay: 0.5 }}
                 className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 p-6 md:p-10 bg-secondary shadow-2xl z-30 border-l-4 md:border-l-8 border-primary rounded-2xl"
           >
-             <span className="text-primary font-black text-[8px] md:text-[9px] uppercase tracking-widest block mb-1 md:mb-2">Performance Node</span>
+             <span className="text-primary font-black text-[8px] md:text-[9px] uppercase tracking-widest block mb-1 md:mb-2">Client</span>
              <span className="text-2xl md:text-4xl lg:text-5xl font-black text-primary uppercase leading-none tracking-tighter italic">{project.stat}</span>
           </motion.div>
         </div>
@@ -264,7 +264,7 @@ const PortfolioCTA = () => {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-           <span className="text-secondary font-black text-xs tracking-[0.5em] uppercase mb-10 block">Collaborate With Us</span>
+           <span className="text-secondary font-black text-xs tracking-[0.5em] uppercase mb-10 block">Work With Us</span>
            <h2 className="text-5xl md:text-8xl lg:text-[10rem] font-black text-white uppercase leading-[0.8] tracking-tighter mb-12 md:mb-16">
              Lead the <br />
              <span className="text-secondary italic font-light">Standard</span>
@@ -273,8 +273,8 @@ const PortfolioCTA = () => {
             to="/contact" 
              className="inline-block px-10 py-5 md:px-16 md:py-8 bg-secondary text-primary font-black uppercase tracking-widest hover:bg-white transition-all shadow-2xl text-xl md:text-2xl rounded-2xl"
            >
-             Initiate Engagement
-           </Link>
+              Get in Touch
+            </Link>
         </motion.div>
       </motion.div>
 
@@ -330,7 +330,7 @@ const Portfolio = () => {
               className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
             >
               <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
-                A comprehensive showcase of high-stakes logistics, structural maintenance, and environmental advocacy across South Africa.
+                A look at the logistics, maintenance, and environmental work we've delivered across South Africa.
               </p>
               <Link to="/contact" className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base rounded-2xl">
                 <span className="relative z-10">View Projects</span>

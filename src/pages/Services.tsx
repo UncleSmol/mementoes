@@ -20,23 +20,23 @@ const services: Service[] = [
     id: "logistics",
     title: "Integrated Logistics",
     subtitle: "Fleet & Transport",
-    desc: "Deploying a self-owned, high-performance fleet ranging from 1-ton bakkies to 9-ton trucks. Our logistics division is defined by operational precision and absolute reliability.",
-    details: ["1-Ton to 9-Ton Fleet Capacity", "Specialized Capacity Trailers", "Professional PrDP Certified Drivers", "Strategic Freight Management"],
+    desc: "Our own fleet of trucks from 1-ton bakkies to 9-ton rigs. Reliable transport with professional drivers you can count on.",
+    details: ["1-Ton to 9-Ton Fleet Capacity", "Specialized Capacity Trailers", "Professional PrDP Certified Drivers", "Freight Management"],
     image: imgLogistics
   },
   {
     id: "waste",
     title: "Waste Tech",
     subtitle: "Eco-Management",
-    desc: "Comprehensive collection and transportation of specialized waste streams. We mitigate environmental impact through rigorous regulatory compliance.",
-    details: ["Specialized Waste Tyre Logistics", "Hazardous Material Handling", "General Waste & Recyclables", "Eco-Conscious Disposal Chains"],
+    desc: "Collection and transport of specialized waste streams. We follow strict environmental regulations to keep things clean and compliant.",
+    details: ["Specialized Waste Tyre Logistics", "Hazardous Material Handling", "General Waste & Recyclables", "Responsible Disposal"],
     image: imgWaste
   },
   {
     id: "maintenance",
     title: "Infrastructure",
     subtitle: "Maintenance Care",
-    desc: "High-end building maintenance and repair services designed to preserve structural value and operational continuity.",
+    desc: "Building maintenance and repair services to keep your structures in good shape and operations running smoothly.",
     details: ["Concrete & Bricklaying Works", "Expert Plumbing & Carpentry", "Professional Painting Services", "Civils Infrastructure Upkeep"],
     image: imgConstruction
   },
@@ -44,8 +44,8 @@ const services: Service[] = [
     id: "parkhomes",
     title: "Parkhome",
     subtitle: "Mobile Solutions",
-    desc: "Full lifecycle management of mobile office units. From initial supply and assembly to professional relocation and maintenance.",
-    details: ["Supply & Rapid Assembly", "Professional Unit Relocation", "Infrastructure Maintenance", "Custom Mobile Office Logic"],
+    desc: "Supply, assembly, relocation, and maintenance of mobile office units. We handle the full setup so you can focus on the work.",
+    details: ["Supply & Assembly", "Unit Relocation", "Infrastructure Maintenance", "Custom Mobile Offices"],
     image: imgParkhome
   }
 ];
@@ -109,7 +109,6 @@ const Services = () => {
     return () => unsubscribe();
   }, [scrollYProgress]);
 
-  const xTitle = useTransform(smoothProgress, [0, 1], ["-10%", "10%"]);
   const textOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
 
   return (
@@ -146,7 +145,7 @@ const Services = () => {
               className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12"
             >
               <p className="text-lg md:text-2xl text-gray-300 font-light max-w-xl leading-relaxed">
-                From high-stakes industrial logistics to meticulous building maintenance, our integrated network delivers precision across every sector.
+                From logistics to building maintenance, we cover the full range — so you only need one team.
               </p>
               <Link to="/contact" className="group relative px-10 py-5 md:px-12 md:py-6 bg-secondary text-dark font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm md:text-base rounded-2xl">
                 <span className="relative z-10">Get a Quote</span>
@@ -184,22 +183,15 @@ const Services = () => {
           </AnimatePresence>
 
           {/* TOP ZONE */}
-          <div className="container mx-auto px-6 lg:px-16 z-50 pointer-events-none relative">
+          <div className="container mx-auto px-6 lg:px-16 z-50 relative">
             <div className="flex items-center gap-4">
               <div className="w-10 h-[1px] bg-secondary"></div>
-              <div className="flex flex-col">
-                <span className="text-secondary font-black text-[9px] tracking-[0.5em] uppercase text-left">Core Offerings</span>
-                <span className="text-white/30 text-[8px] font-light uppercase tracking-widest mt-1">Integrated Network</span>
-              </div>
+              <span className="text-secondary font-black text-[9px] tracking-[0.5em] uppercase">Core Offerings</span>
             </div>
           </div>
 
           {/* MIDDLE ZONE */}
-          <div className="relative z-40 flex items-center overflow-hidden pointer-events-none">
-            <motion.div style={{ x: xTitle }} className="absolute top-1/2 left-0 -translate-y-1/2 whitespace-nowrap opacity-[0.03] z-0 pointer-events-none">
-              <span className="text-[25vw] font-black text-white uppercase leading-none">CAPABILITIES</span>
-            </motion.div>
-
+          <div className="relative z-40 flex items-center overflow-hidden">
             <div className="container mx-auto px-6 lg:px-16 w-full h-full relative z-10 flex flex-col justify-center">
               <AnimatePresence mode="wait">
                 <motion.div 
@@ -208,12 +200,11 @@ const Services = () => {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -40, opacity: 0 }}
                   transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                  className="max-w-6xl w-full pointer-events-auto"
+                  className="max-w-6xl w-full"
                 >
                   <div className="flex items-center gap-3 mb-3 md:mb-6 text-left">
                     <span className="text-secondary font-black text-lg md:text-xl italic text-left">0{activeIndex+1}</span>
                     <div className="w-8 md:w-12 h-[1px] bg-white/20" />
-                    <span className="text-white/40 font-black text-[8px] md:text-[9px] uppercase tracking-[0.4em] text-left">Service Pillar</span>
                   </div>
                   <h2 className="text-3xl md:text-5xl lg:text-[6vw] font-black text-white uppercase leading-[0.9] tracking-tighter mb-4 md:mb-8 text-left">
                     {services[activeIndex].title}<br />
@@ -239,21 +230,14 @@ const Services = () => {
           </div>
 
           {/* BOTTOM ZONE */}
-          <div className="container mx-auto px-6 lg:px-16 z-50 flex items-end justify-between pointer-events-none relative py-4 md:py-2">
-             <div className="flex flex-col gap-4 text-left">
-                <div className="flex items-center gap-2">
-                  {services.map((_, i) => (
-                    <div key={i} className={`h-[2px] transition-all duration-500 ${activeIndex === i ? 'w-8 bg-secondary' : 'w-2 bg-white/10'}`} />
-                  ))}
-                </div>
-                <div className="flex items-center gap-6">
-                  <span className="text-secondary font-black text-[10px] tracking-widest uppercase italic text-left">0{activeIndex + 1} / 04</span>
-                  <div className="w-32 md:w-64 h-[1px] bg-white/5 relative overflow-hidden">
-                     <motion.div style={{ scaleX: scrollYProgress }} className="absolute inset-0 bg-secondary origin-left" />
-                  </div>
-                </div>
+          <div className="container mx-auto px-6 lg:px-16 z-50 flex items-end justify-between relative py-4 md:py-2">
+             <div className="flex items-center gap-3">
+               {services.map((_, i) => (
+                 <div key={i} className={`h-[2px] transition-all duration-500 ${activeIndex === i ? 'w-8 bg-secondary' : 'w-2 bg-white/10'}`} />
+               ))}
+               <span className="text-white/30 font-black text-[10px] tracking-widest uppercase italic ml-4">0{activeIndex + 1} / 04</span>
              </div>
-             <Link to="/about" className="pointer-events-auto px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-black uppercase text-[9px] tracking-widest hover:bg-white hover:text-primary transition-all rounded-2xl">Our Story</Link>
+             <Link to="/about" className="px-8 py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-black uppercase text-[9px] tracking-widest hover:bg-white hover:text-primary transition-all rounded-2xl">Our Story</Link>
           </div>
 
         </div>
