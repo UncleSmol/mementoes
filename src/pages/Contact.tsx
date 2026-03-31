@@ -1,53 +1,11 @@
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import imgContactHero from '../assets/external/contact-hero.jpg';
 
 const Contact = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error' | 'rate-limited'>('idle');
-  const [formData, setFormData] = useState({
-    user_name: '',
-    user_email: '',
-    user_phone: '',
-    subject: '',
-    message: '',
-    honeypot: '' // Spam protection
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('sending');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        console.error('Backend Error:', result);
-        throw new Error(result.error || 'Failed to send');
-      }
-
-      setStatus('success');
-      setFormData({ user_name: '', user_email: '', user_phone: '', subject: '', message: '', honeypot: '' });
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (error: any) {
-      console.error('Contact Form Error:', error.message);
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
-    }
-  };
 
   return (
     <div ref={containerRef} className="bg-[#05070a] selection:bg-secondary selection:text-white overflow-x-clip scrollbar-hide relative">
@@ -149,113 +107,85 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Direct Contact Actions */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-white p-6 md:p-12 shadow-2xl relative rounded-2xl"
+            className="space-y-8"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 -z-10 blur-3xl"></div>
-            
-            <AnimatePresence mode="wait">
-              {status === 'success' ? (
-                <motion.div 
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="h-full flex flex-col items-center justify-center py-20 text-center"
+            {/* Big CTA Card */}
+            <div className="relative bg-primary p-8 md:p-12 overflow-hidden rounded-2xl">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 blur-[100px] pointer-events-none" />
+              <span className="text-white/20 font-black text-[9px] uppercase tracking-[0.5em] block mb-6">Quick Connect</span>
+              <h3 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-4">
+                Let's Build
+                <br />
+                <span className="text-secondary italic font-light">Together</span>
+              </h3>
+              <p className="text-white/50 font-light text-sm md:text-base leading-relaxed mb-8 max-w-md">
+                Skip the form. Reach us directly through the channel that works best for you. We respond fast.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="https://wa.me/27824161012"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-secondary text-primary font-black uppercase text-[10px] md:text-xs tracking-widest hover:bg-white transition-all shadow-2xl active:scale-95 rounded-2xl"
                 >
-                  <div className="w-20 h-20 bg-secondary flex items-center justify-center rounded-full mb-6">
-                    <i className="bi bi-check-lg text-primary text-4xl"></i>
-                  </div>
-                  <h3 className="text-primary font-black uppercase text-2xl mb-2">Message Sent</h3>
-                  <p className="text-gray-500 font-light">We'll get back to you shortly.</p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8 text-left">
-                  {/* Honeypot Field (Hidden) */}
-                  <input type="text" name="honeypot" value={formData.honeypot} onChange={handleChange} className="hidden" />
-                  
-                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                    <div className="space-y-2">
-                      <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Full Name</label>
-                      <input 
-                        required
-                        type="text" 
-                        name="user_name"
-                        value={formData.user_name}
-                        onChange={handleChange}
-                        placeholder="John Doe" 
-                        className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Email Address</label>
-                      <input 
-                        required
-                        type="email" 
-                        name="user_email"
-                        value={formData.user_email}
-                        onChange={handleChange}
-                        placeholder="john@example.com" 
-                        className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
-                      />
-                    </div>
-                  </div>
+                  <i className="bi bi-whatsapp text-lg md:text-xl"></i>
+                  WhatsApp Us
+                </a>
+                <a
+                  href="tel:+27824161012"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 border border-white/15 text-white font-black uppercase text-[10px] md:text-xs tracking-widest hover:bg-white/20 transition-all active:scale-95 rounded-2xl"
+                >
+                  <i className="bi bi-telephone text-lg md:text-xl"></i>
+                  Call Now
+                </a>
+              </div>
+            </div>
 
-                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                    <div className="space-y-2">
-                      <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Phone Number</label>
-                      <input 
-                        type="tel" 
-                        name="user_phone"
-                        value={formData.user_phone}
-                        onChange={handleChange}
-                        placeholder="+27..." 
-                        className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Subject</label>
-                      <input 
-                        required
-                        type="text" 
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        placeholder="Project Inquiry" 
-                        className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter text-sm md:text-base" 
-                      />
-                    </div>
-                  </div>
+            {/* Info Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+              <div className="bg-white/[0.03] border border-white/[0.06] p-6 md:p-8 group hover:border-secondary/30 transition-colors duration-500 rounded-2xl">
+                <div className="w-10 h-10 bg-secondary/10 flex items-center justify-center mb-4 rounded-xl">
+                  <i className="bi bi-clock text-secondary text-lg"></i>
+                </div>
+                <span className="text-white/20 font-black text-[8px] uppercase tracking-[0.5em] block mb-3">Operating Hours</span>
+                <p className="text-white font-bold uppercase text-sm tracking-tight">Mon - Fri</p>
+                <p className="text-white/40 font-light text-sm mt-1">07:30 — 17:00 SAST</p>
+              </div>
 
-                  <div className="space-y-2">
-                    <label className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-primary/40 block text-left">Message</label>
-                    <textarea 
-                      required
-                      rows={4} 
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="How can we help you?" 
-                      className="w-full bg-transparent border-b-2 border-primary/10 py-3 md:py-4 focus:border-secondary transition-colors outline-none text-primary font-black uppercase tracking-tighter resize-none text-sm md:text-base" 
-                    />
-                  </div>
-                  
-                  <button 
-                    disabled={status === 'sending'}
-                    className="w-full py-4 md:py-6 bg-primary text-white font-black uppercase text-xs md:text-sm tracking-[0.4em] hover:bg-secondary hover:text-primary transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl"
-                  >
-                    {status === 'sending' ? 'Sending...' : 'Send Message'}
-                  </button>
-                  
-                  {status === 'error' && <p className="text-red-500 text-[10px] font-black uppercase text-center mt-4">Failed to send. Please try again.</p>}
-                  {status === 'rate-limited' && <p className="text-orange-500 text-[10px] font-black uppercase text-center mt-4">Too many requests. Please wait a minute.</p>}
-                </form>
-              )}
-            </AnimatePresence>
+              <div className="bg-white/[0.03] border border-white/[0.06] p-6 md:p-8 group hover:border-secondary/30 transition-colors duration-500 rounded-2xl">
+                <div className="w-10 h-10 bg-secondary/10 flex items-center justify-center mb-4 rounded-xl">
+                  <i className="bi bi-envelope-paper text-secondary text-lg"></i>
+                </div>
+                <span className="text-white/20 font-black text-[8px] uppercase tracking-[0.5em] block mb-3">Email Inquiry</span>
+                <a href="mailto:info@mementoes.co.za" className="text-white font-bold uppercase text-sm tracking-tight hover:text-secondary transition-colors block break-all">
+                  info@mementoes.co.za
+                </a>
+              </div>
+
+              <div className="bg-white/[0.03] border border-white/[0.06] p-6 md:p-8 group hover:border-secondary/30 transition-colors duration-500 rounded-2xl">
+                <div className="w-10 h-10 bg-secondary/10 flex items-center justify-center mb-4 rounded-xl">
+                  <i className="bi bi-shield-check text-secondary text-lg"></i>
+                </div>
+                <span className="text-white/20 font-black text-[8px] uppercase tracking-[0.5em] block mb-3">Registration</span>
+                <p className="text-white font-bold uppercase text-sm tracking-tight">Mementoes Trading</p>
+                <p className="text-white/40 font-light text-sm mt-1">Pty Ltd — South Africa</p>
+              </div>
+
+              <div className="bg-white/[0.03] border border-white/[0.06] p-6 md:p-8 group hover:border-secondary/30 transition-colors duration-500 rounded-2xl">
+                <div className="w-10 h-10 bg-secondary/10 flex items-center justify-center mb-4 rounded-xl">
+                  <i className="bi bi-geo-alt text-secondary text-lg"></i>
+                </div>
+                <span className="text-white/20 font-black text-[8px] uppercase tracking-[0.5em] block mb-3">Headquarters</span>
+                <p className="text-white font-bold uppercase text-sm tracking-tight">eMalahleni</p>
+                <p className="text-white/40 font-light text-sm mt-1">Mpumalanga, 1039</p>
+              </div>
+            </div>
           </motion.div>
         </div>
 
