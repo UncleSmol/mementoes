@@ -3,6 +3,7 @@ import { useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
+const Maintenance = lazy(() => import('./pages/Maintenance'));
 const Home = lazy(() => import('./pages/Home'));
 const AboutUs = lazy(() => import('./pages/AboutUs'));
 const Services = lazy(() => import('./pages/Services'));
@@ -44,7 +45,8 @@ function App() {
         <main className="flex-grow">
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Maintenance />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/services" element={<Services />} />
               <Route path="/mementoes360" element={<Mementoes360 />} />
