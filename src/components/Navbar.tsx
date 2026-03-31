@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/Mementoes Logo.png';
@@ -6,6 +6,19 @@ import logo from '../assets/Mementoes Logo.png';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navRef = useRef<HTMLElement>(null);
+
+  // Dispatch navbar height for scroll-to-top button
+  useEffect(() => {
+    const updateHeight = () => {
+      if (navRef.current) {
+        window.dispatchEvent(new CustomEvent('navbar-height', { detail: navRef.current.offsetHeight }));
+      }
+    };
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -29,7 +42,7 @@ const Navbar = () => {
   return (
     <>
       {/* 1. DESKTOP NAVIGATION (lg+ only) */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] px-10 py-8 hidden lg:flex items-center justify-between bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
+      <nav ref={navRef} className="relative z-[100] px-10 py-8 hidden lg:flex items-center justify-between bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
         <Link to="/">
           <img src={logo} alt="Mementoes" className="h-12 w-auto object-contain" />
         </Link>
@@ -50,7 +63,7 @@ const Navbar = () => {
       </nav>
 
       {/* 2. MOBILE FIXED HEADER */}
-      <div className="fixed top-0 left-0 right-0 z-[120] px-6 py-6 flex items-center justify-between lg:hidden bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
+      <div className="relative z-[120] px-6 py-6 flex items-center justify-between lg:hidden bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
         <Link to="/" onClick={() => setIsMenuOpen(false)}>
           <img src={logo} alt="Mementoes" className="h-8 w-auto object-contain" />
         </Link>

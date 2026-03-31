@@ -10,7 +10,7 @@ const Contact = () => {
   return (
     <div ref={containerRef} className="bg-[#05070a] selection:bg-secondary selection:text-white overflow-x-clip scrollbar-hide relative">
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
+      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark ">
         <div className="absolute inset-0 z-0">
           <img src={imgContactHero} alt="Contact Us" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>
@@ -124,7 +124,7 @@ const Contact = () => {
                 <span className="text-secondary italic font-light">Together</span>
               </h3>
               <p className="text-white/50 font-light text-sm md:text-base leading-relaxed mb-8 max-w-md">
-                Skip the form. Reach us directly through the channel that works best for you. We respond fast.
+                Reach us directly through the channel that works best for you. We respond fast.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">

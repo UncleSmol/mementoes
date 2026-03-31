@@ -191,7 +191,7 @@ const AboutUs = () => {
 
   return (
     <div ref={containerRef} className="bg-white text-left relative overflow-x-clip scrollbar-hide">
-      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark pt-24 lg:pt-20">
+      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark">
         <div className="fixed inset-0 z-0">
           <img src={imgAboutHero} alt="About Mementoes" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>

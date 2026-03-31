@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 const Maintenance = lazy(() => import('./pages/Maintenance'));
 const Home = lazy(() => import('./pages/Home'));
@@ -72,6 +73,7 @@ function AppLayout() {
         </Suspense>
       </main>
       {!hideChrome && <Footer />}
+      <ScrollToTopButton />
     </div>
   );
 }
