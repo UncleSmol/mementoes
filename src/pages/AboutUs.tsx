@@ -191,7 +191,7 @@ const AboutUs = () => {
 
   return (
     <div ref={containerRef} className="bg-white text-left relative overflow-x-clip scrollbar-hide">
-      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark">
+      <section className="relative min-h-screen w-full flex items-center justify-start overflow-hidden bg-dark">
         <div className="fixed inset-0 z-0">
           <img src={imgAboutHero} alt="About Mementoes" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>
@@ -246,10 +246,10 @@ const AboutUs = () => {
               <div className="space-y-8 md:space-y-12 max-w-3xl">
                 <h3 className="text-lg md:text-3xl font-light text-primary italic leading-tight border-l-4 md:border-l-8 border-secondary pl-6 md:pl-8">"Nature holds no voice of its own. We have made it our mission to be the echo of the environment."</h3>
                 <div className="space-y-8 md:space-y-10 max-w-2xl text-left">
-                  <p className="text-base md:text-xl text-gray-500 font-light leading-relaxed text-left">Founded in 2012 by <span className="font-bold text-primary italic">Zodwa Mlangeni</span>, Mementoes Trading has scaled from a local endeavor into a multi-sector force serving a 100km radius from Witbank.</p>
+                  <p className="text-base md:text-xl text-gray-500 font-light leading-relaxed text-left">Founded in 2012 by <span className="font-bold text-primary italic">Zodwa Mlangeni</span>, Mementoes Trading has scaled from a local endeavor into a multi-sector force with national reach across South Africa's industrial heartland.</p>
                   <div className="flex flex-wrap gap-8 md:gap-12 pt-4">
                      <div className="flex flex-col"><span className="text-3xl md:text-4xl font-black text-primary leading-none">07</span><span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-secondary mt-2 md:mt-3">Sustainable Jobs</span></div>
-                     <div className="flex flex-col border-l border-gray-100 pl-8 md:pl-12"><span className="text-3xl md:text-4xl font-black text-primary leading-none">100KM</span><span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-secondary mt-2 md:mt-3">Operational Radius</span></div>
+                     <div className="flex flex-col border-l border-gray-100 pl-8 md:pl-12"><span className="text-3xl md:text-4xl font-black text-primary leading-none">12+</span><span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-secondary mt-2 md:mt-3">Years Active</span></div>
                   </div>
                 </div>
               </div>

@@ -14,7 +14,7 @@ const Hero = () => {
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark">
+    <section ref={containerRef} className="relative min-h-screen w-full flex items-center justify-start overflow-hidden bg-dark">
       {/* Fixed background image */}
       <div className="fixed inset-0 z-0">
         <img 

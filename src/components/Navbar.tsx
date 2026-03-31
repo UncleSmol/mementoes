@@ -42,7 +42,7 @@ const Navbar = () => {
   return (
     <>
       {/* 1. DESKTOP NAVIGATION (lg+ only) */}
-      <nav ref={navRef} className="relative z-[100] px-10 py-8 hidden lg:flex items-center justify-between bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
+      <nav ref={navRef} className="relative z-[100] px-10 py-[11px] hidden lg:flex items-center justify-between bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
         <Link to="/">
           <img src={logo} alt="Mementoes" className="h-12 w-auto object-contain" />
         </Link>
@@ -63,7 +63,7 @@ const Navbar = () => {
       </nav>
 
       {/* 2. MOBILE FIXED HEADER */}
-      <div className="relative z-[120] px-6 py-6 flex items-center justify-between lg:hidden bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
+      <div className="relative z-[120] px-6 py-[19px] flex items-center justify-between lg:hidden bg-white/80 backdrop-blur-xl border-b border-white/10 transition-all duration-500">
         <Link to="/" onClick={() => setIsMenuOpen(false)}>
           <img src={logo} alt="Mementoes" className="h-8 w-auto object-contain" />
         </Link>

@@ -299,7 +299,7 @@ const Portfolio = () => {
     <div ref={containerRef} className="bg-primary selection:bg-secondary selection:text-white overflow-x-clip scrollbar-hide relative">
 
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex items-center justify-start overflow-hidden bg-dark">
+      <section className="relative min-h-screen w-full flex items-center justify-start overflow-hidden bg-dark">
         <div className="fixed inset-0 z-0">
           <img src={imgLogistics} alt="Project Portfolio" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>

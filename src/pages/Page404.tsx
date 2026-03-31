@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Page404 = () => {
   return (
-    <section className="relative h-screen w-full bg-dark flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen w-full bg-dark flex items-center justify-center overflow-hidden">
       {/* Background Parallax Number */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.8 }}
