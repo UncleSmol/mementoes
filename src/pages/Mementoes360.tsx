@@ -38,7 +38,7 @@ const Mementoes360 = () => {
       {/* 1. HERO SECTION */}
       <section className="relative min-h-screen w-full flex items-center justify-start overflow-hidden bg-dark ">
         <div className="fixed inset-0 z-0">
-          <img src={post5} alt="Mementoes 360" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
+          <img src="https://images.pexels.com/photos/19483033/pexels-photo-19483033.jpeg" alt="Hero Background" className="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale contrast-125" />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/20 via-dark/60 to-dark"></div>
         </div>
         <div className="container mx-auto px-6 lg:px-16 relative z-10">
